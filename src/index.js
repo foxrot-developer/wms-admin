@@ -23,10 +23,10 @@ let devtools, store;
 const isClient = typeof window !== "undefined";
 
 if (isClient) {
-  devtools =
-    process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : (f) => f;
+  // devtools =
+  //   process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
+  //     ? window.__REDUX_DEVTOOLS_EXTENSION__()
+  //     : (f) => f;
 
   const storage = require("redux-persist/lib/storage").default;
   const persistConfig = {
@@ -36,7 +36,7 @@ if (isClient) {
 
   store = createStore(
     persistReducer(persistConfig, rootReducer),
-    compose(applyMiddleware(thunk), devtools)
+    compose(applyMiddleware(thunk))
   );
 
   store.__PERSISTOR = persistStore(store);

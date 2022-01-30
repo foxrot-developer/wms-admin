@@ -1,12 +1,15 @@
 
-import * as actionTypes from '../actions/actionCreators';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     admin: {}
 }
 
 const adminReducer = (state = initialState, action) => {
-    switch (action.type) { }
+    switch (action.type) {
+        default:
+            return state;
+    }
 }
 
 export default adminReducer;
