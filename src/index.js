@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import bootstrap from 'bootstrap';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -21,7 +22,6 @@ const rootReducer = combineReducers({
 
 let devtools, store;
 const isClient = typeof window !== "undefined";
-
 if (isClient) {
   devtools =
     process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
