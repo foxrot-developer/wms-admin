@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Container, ContentWrapper, LeftSection, RightSection, LoginForm } from './StyledLogin';
+
 export default function Login() {
   return (
     <Fragment>
