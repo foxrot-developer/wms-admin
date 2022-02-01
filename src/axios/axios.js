@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-    baseURL: '',
+    baseURL: 'https://wmsss.herokuapp.com/',
 });
 
 export default Axios;

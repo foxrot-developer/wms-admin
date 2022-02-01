@@ -1,15 +1,25 @@
 import React, { Fragment } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import {admin_login} from '../../store/storeIndex'
 import { Container, ContentWrapper, LeftSection, RightSection, LoginForm } from './StyledLogin';
 
 
 
 export default function Login() {
+  const dispatch = useDispatch();
   const   LoginSchema = Yup.object().shape({
     password: Yup.string().required('Password is Required.'),
     email: Yup.string().email('Invalid email').required('Email is Required.'),
   });
+  const onSubmitHandler = (data) =>{
+      dispatch(
+          admin_login(data)
+
+        )
+      
+  }
   return (
     <Fragment>
         <Container className='d-flex justify-content-center align-items-center'>
@@ -22,15 +32,16 @@ export default function Login() {
                       email: '',
                       password: '',
                   }}
-                  onSubmit={values => {
-                    console.log(values);
-                  }}
+                  onSubmit={
+                    onSubmitHandler
+                  }
+
                   validationSchema={LoginSchema}
                 >
                   {({ errors, touched }) => (
                   <Form className='form'>
                     <Field 
-                      className={ `input-field ${errors.email && touched.email ? 'invalid' : null}` }
+                      className={ `input-field ${errors.email && touched.email && 'invalid' }` }
                       id="email"
                       name="email"
                       type="email"
@@ -38,12 +49,12 @@ export default function Login() {
                       />
                      
                     <Field
-                    className={ `input-field ${errors.password && touched.password ? 'invalid' : ''}` }
+                    className={ `input-field ${errors.password && touched.password && 'invalid' }` }
                     id="password"
                     name="password"
                     type="password"
                     placeholder='Password' />
-                    <Field className="input-field" type="submit" value="Log in"/>
+                    <Field className="input-field" type="submit" value="Log in" />
                     {errors.email && touched.email ? (
                         <div  className='error-msg'>{errors.email}</div>
                       ) : null}
