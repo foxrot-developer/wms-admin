@@ -11,13 +11,13 @@ export const Admins = () => {
   <Container>
       <ContentWrap>
       <SideBar/>
-    <div className='container p-md-5'>
+    <div className='container p-md-5 '>
         <div className='row'>
             <div className='col-6'>
                 <h2>Admin(s)</h2>
             </div>
             <div className='col-6 add-btn'>
-                <Link to='/add-product' className='btn btn-primary'>
+                <Link to='/add-admin' className='btn btn-primary'>
                     Add Admin
                 </Link>
             </div>

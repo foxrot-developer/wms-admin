@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Main = styled.div`
     height: 100vh;
     width: 75%; 
-    background-color: #CDECF2;
+    background-color: var(--light-grey);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 const Container = styled.div`
