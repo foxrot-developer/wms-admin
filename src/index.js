@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import bootstrap from 'bootstrap';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,12 +11,16 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import adminReducer from './store/admin/reducers/adminReducer';
+import productReducer from './store/product/reducers/productReducer';
+import stockReducer from './store/stock/reducers/stockReducer';
 
 
 const { persistStore, persistReducer } = require("redux-persist");
 
 const rootReducer = combineReducers({
-  admin: adminReducer
+  admin: adminReducer,
+  product: productReducer,
+  stock: stockReducer
 });
 
 let devtools, store;
