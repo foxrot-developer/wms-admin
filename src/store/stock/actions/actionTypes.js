@@ -1,1 +1,0 @@
-export const ALL_STOCK = 'ALL_STOCK';

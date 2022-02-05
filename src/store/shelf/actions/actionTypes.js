@@ -1,0 +1,2 @@
+export const GET_ALL_SHELF = 'GET_SHELF';
+export const GET_ALL_SHELF_DETAIL = 'GET_SHELF_DETAIL';

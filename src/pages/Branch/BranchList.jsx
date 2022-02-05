@@ -1,0 +1,62 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SideBar from '../../components/Dashboard/Sidebar/SideBar';
+import { Container, ContentWrap } from '../../components/Global/GlobalStyle';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const BranchList = () => {
+  return (
+    <Container>
+      <ContentWrap>
+        <SideBar />
+        <div className='container p-md-5 '>
+          <div className='row'>
+            <div className='col-6'>
+              <h2>المسؤول (ق)</h2>
+            </div>
+            <div className='col-6 add-btn'>
+              <Link to='/add-admin' className='btn btn-primary'>
+                إضافة المسؤول
+              </Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className='table-responsive'>
+                <table class='table table-bordered'>
+                  <thead>
+                    <tr>
+                      <th scope='col'>#</th>
+                      <th scope='col'>اسم</th>
+                      <th scope='col'>بريد الالكتروني</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope='row'>1</th>
+                      <td>John Deo</td>
+                      <td>admin@gmail.com</td>
+                      <td>
+                        <div class='action-btns'>
+                          <Link to='edit-admin'>
+                            <EditIcon className='edit-btn' />
+                          </Link>
+                          <Link to='delete-admin'>
+                            <DeleteIcon className='del-btn' />
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ContentWrap>
+    </Container>
+  );
+};
+
+export default BranchList;

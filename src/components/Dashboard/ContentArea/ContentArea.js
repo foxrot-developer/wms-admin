@@ -1,37 +1,55 @@
 import React from 'react';
 import { Container, Row, Main } from './ContentAreaStyled';
-import {StatsCard} from './StatsCard/StatsCard'
+import { StatsCard } from './StatsCard/StatsCard';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBagOutlined';
 import StoreIcon from '@mui/icons-material/StorefrontOutlined';
 import AdminIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
 export const ContentArea = () => {
-  return( 
+  return (
     <>
-        <Main>
-          <Container className=''>
-            <Row className='row d-flex justify-content-center w-100 m-0'>
-            <StatsCard 
-              icon={<AdminIcon/>}
-              title="Admin"
-              count="1"
-              link='/admins'
-            />
-            <StatsCard 
-              icon={<ShoppingBagIcon/>}
-              title="Products"
-              count="135"
+      <Main>
+        <Container>
+          <Row className='row d-flex justify-content-center w-100 m-0'>
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='قائمة المنتجات'
+              count='135'
               link='/products'
             />
-            <StatsCard 
-              icon={<StoreIcon/>}
-              title="Stock"
-              count="999"  
-              link='/stock'
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='قائمة المستخدم'
+              count='135'
+              link='/user'
             />
-            </Row>
-          </Container>
-        </Main>
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='قائمة الرف'
+              count='135'
+              link='/shelf'
+            />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='تقرير المنتج'
+              count='135'
+              link='/products-report'
+            />
+            {/* <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='الفروع'
+              count='135'
+              link='/branches'
+            />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='ارسل بريد الكتروني'
+              count='135'
+              link='/send-sms'
+            /> */}
+          </Row>
+        </Container>
+      </Main>
     </>
-  )
+  );
 };

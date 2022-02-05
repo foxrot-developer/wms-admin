@@ -1,16 +1,19 @@
-export {
-    admin_login
-} from './admin/actions/actionCreators.js';
+export { admin_login } from './admin/actions/actionCreators.js';
 
 export {
-    getAllProducts,
-    addProduct,
-    editProduct,
-    deleteProduct
+  getAllFloorProducts,
+  getAllPallentProducts,
+  getAllShelfProducts,
+  getAllProducts,
+  addProduct,
+  editProduct,
+  deleteProduct,
 } from './product/actions/actionCreators.js';
 
 export {
-    getAllStock,
-    addStock,
-    editStock
-} from './stock/actions/actionCreators.js';
+  addShelfProduct,
+  editShelfProduct,
+  deleteShelfProduct,
+  getAllShelf,
+  getAllShelfDetail,
+} from './shelf/actions/actionCreators.js';

@@ -12,28 +12,27 @@ import thunk from 'redux-thunk';
 
 import adminReducer from './store/admin/reducers/adminReducer';
 import productReducer from './store/product/reducers/productReducer';
-import stockReducer from './store/stock/reducers/stockReducer';
+import shelfReducer from './store/shelf/reducers/shelfReducer';
 
-
-const { persistStore, persistReducer } = require("redux-persist");
+const { persistStore, persistReducer } = require('redux-persist');
 
 const rootReducer = combineReducers({
   admin: adminReducer,
   product: productReducer,
-  stock: stockReducer
+  shelf: shelfReducer,
 });
 
 let devtools, store;
-const isClient = typeof window !== "undefined";
+const isClient = typeof window !== 'undefined';
 if (isClient) {
   // devtools =
   //   process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
   //     ? window.__REDUX_DEVTOOLS_EXTENSION__()
   //     : (f) => f;
 
-  const storage = require("redux-persist/lib/storage").default;
+  const storage = require('redux-persist/lib/storage').default;
   const persistConfig = {
-    key: "wms-admin",
+    key: 'wms-admin',
     storage,
   };
 
@@ -49,7 +48,9 @@ if (isClient) {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}><App /></Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
