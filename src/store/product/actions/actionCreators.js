@@ -97,3 +97,49 @@ export const getAllFloorProducts = () => (dispatch) => {
       toast.error(error.response.data.message);
     });
 };
+
+export const getProductReport = (data) => (dispatch) => {
+  Axios.post('product/product-report', data)
+    .then((response) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_REPORT,
+        payload: response.data.response,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_REPORT,
+        payload: [],
+      });
+      console.log(error);
+      toast.error(error.response.data.message);
+    });
+};
+
+export const getProductNearToExpire = () => (dispatch) => {
+  Axios.post('product/product-expiry', {
+    today_date: formatDateToString(new Date()),
+  })
+    .then((response) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_NEAR_TO_EXPIRE,
+        payload: response.data.response,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_NEAR_TO_EXPIRE,
+        payload: [],
+      });
+      console.log(error);
+      toast.error(error.response.data.message);
+    });
+};
+
+function formatDateToString(date) {
+  var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+
+  var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
+
+  return `${date.getFullYear()}-${MM}-${dd}`;
+}

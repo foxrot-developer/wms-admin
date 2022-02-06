@@ -15,10 +15,10 @@ export const MyRoutes = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Dashboard />} />
+          <Route index element={<Login />} />
+          <Route path='dashboard' element={<Dashboard />} />
           <Route path='products' element={<Products />} />
-          <Route path='login' element={<Login />} />
-          <Route path='branches' element={<BranchList />} />
+          <Route path='products-expiry' element={<BranchList />} />
           <Route path='user' element={<User />} />
           <Route path='shelf' element={<Shelf />} />
           <Route path='products-report' element={<ProductReport />} />

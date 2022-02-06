@@ -4,6 +4,8 @@ const initialState = {
   floorProducts: [],
   pallentProducts: [],
   shelfProducts: [],
+  productReport: [],
+  productNearToExpire: [],
 };
 
 const ProductReducer = (state = initialState, action) => {
@@ -22,6 +24,16 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         shelfProducts: action.payload,
+      };
+    case actionTypes.GET_PRODUCT_REPORT:
+      return {
+        ...state,
+        productReport: action.payload,
+      };
+    case actionTypes.GET_PRODUCT_NEAR_TO_EXPIRE:
+      return {
+        ...state,
+        productNearToExpire: action.payload,
       };
     default:
       return state;

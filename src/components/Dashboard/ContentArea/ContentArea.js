@@ -35,6 +35,12 @@ export const ContentArea = () => {
               count='135'
               link='/products-report'
             />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='انتهاء صلاحية المنتجات'
+              count='135'
+              link='/products-expiry'
+            />
             {/* <StatsCard
               icon={<ShoppingBagIcon />}
               title='الفروع'

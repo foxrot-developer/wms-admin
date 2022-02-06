@@ -7,28 +7,26 @@ import {
   SidebarBottom,
   Avatar,
 } from './SidebarStyled';
-import MenuIcon from '@mui/icons-material/Menu';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import AdminPanelIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import userImg from '../../../assets/images/user.jpeg';
+import { useSelector } from 'react-redux';
 
 const SideBar = () => {
+  const admin = useSelector((state) => state.admin.admin);
   return (
     <>
       <AdSidebar>
         <SidebarTop>
           <div className='logo'>
-            <NavLink to='/' className='text-decoration-none'>
+            <NavLink to='/dashboard' className='text-decoration-none'>
               <h4>متجري</h4>
             </NavLink>
           </div>
         </SidebarTop>
         <SidebarMenu>
           <ul>
-            <NavLink to='/' activeClassName='active'>
+            <NavLink to='/dashboard' activeClassName='active'>
               <li>
                 <span>
                   <WidgetsOutlinedIcon />
@@ -68,12 +66,12 @@ const SideBar = () => {
                 تقرير المنتج
               </li>
             </NavLink>
-            <NavLink to='/branches' activeClassName='active'>
+            <NavLink to='/products-expiry' activeClassName='active'>
               <li>
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                الفروع
+                انتهاء صلاحية المنتجات
               </li>
             </NavLink>
             {/*
@@ -91,7 +89,7 @@ const SideBar = () => {
           <Avatar>
             <NavLink to='/'>
               <img src={userImg} alt='Avatar' />
-              <span>جون ديو</span>
+              <span>{admin.username}</span>
             </NavLink>
           </Avatar>
         </SidebarBottom>

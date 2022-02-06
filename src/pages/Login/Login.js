@@ -10,22 +10,24 @@ import {
   RightSection,
   LoginForm,
 } from './StyledLogin';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const LoginSchema = Yup.object().shape({
     password: Yup.string().required('Password is Required.'),
     email: Yup.string().email('Invalid email').required('Email is Required.'),
   });
   const onSubmitHandler = (data) => {
-    dispatch(admin_login(data));
+    dispatch(admin_login(data, navigation));
   };
   return (
     <Fragment>
       <Container className='d-flex justify-content-center align-items-center'>
         <ContentWrapper className='d-flex m-auto'>
           <LeftSection className='d-flex flex-column align-items-center justify-content-center'>
-            <h3>Login</h3>
+            <h3>تسجيل الدخول</h3>
             <LoginForm>
               <Formik
                 initialValues={{
