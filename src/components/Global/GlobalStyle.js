@@ -32,17 +32,17 @@ export const ModalContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  max-height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ModalContent = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 500px;
+  max-width: 500px;
+  max-height: 100vh;
+  overflow: scroll;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px;
