@@ -58,6 +58,7 @@ const SidebarBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 0px 20px;
   position: absolute;
   width: 100%;
@@ -68,6 +69,7 @@ const SidebarBottom = styled.div`
 `;
 const Avatar = styled.div`
   height: 40px;
+  width: 40px;
   border-radius: 50px;
   a {
     color: #fff;

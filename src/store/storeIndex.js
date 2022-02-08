@@ -17,3 +17,9 @@ export {
   getAllShelf,
   getAllShelfDetail,
 } from './shelf/actions/actionCreators.js';
+
+export {
+  addStock,
+  getAllStock,
+  removeStock,
+} from './stock/action/actionCreator.js';

@@ -136,10 +136,30 @@ export const getProductNearToExpire = () => (dispatch) => {
     });
 };
 
-function formatDateToString(date) {
+export const getProductByBarcode = (barcode) => (dispatch) => {
+  Axios.post('product/barcode-reader', {
+    barcode: barcode,
+  })
+    .then((response) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_BY_BARCODE,
+        payload: response.data.response,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_BY_BARCODE,
+        payload: [],
+      });
+      console.log(error);
+      toast.error(error.response.data.message);
+    });
+};
+
+const formatDateToString = (date) => {
   var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
 
   var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
 
   return `${date.getFullYear()}-${MM}-${dd}`;
-}
+};

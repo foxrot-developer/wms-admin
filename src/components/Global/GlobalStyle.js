@@ -32,20 +32,24 @@ export const ModalContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  max-height: 100vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const ModalContent = styled.div`
   max-width: 500px;
   max-height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px;
+  @media print {
+    overflow-y: hidden;
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -53,6 +57,9 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  @media print {
+    display: none;
+  }
 `;
 
 export const Header = styled.h3`
@@ -68,4 +75,18 @@ export const ModalBtnContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 20px;
+  @media print {
+    display: none;
+  }
+`;
+
+export const ModalSearchContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  @media print {
+    display: none;
+  }
+  margin-bottom: 20px;
 `;

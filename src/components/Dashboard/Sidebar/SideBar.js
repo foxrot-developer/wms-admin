@@ -74,22 +74,38 @@ const SideBar = () => {
                 انتهاء صلاحية المنتجات
               </li>
             </NavLink>
-            {/*
-            <NavLink to='/send-sms' activeClassName='active'>
+            <NavLink to='/checkin' activeClassName='active'>
               <li>
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                ارسل بريد الكتروني
+                تسجيل وصول المستخدم
               </li>
-            </NavLink> */}
+            </NavLink>
+            <NavLink to='/checkin' activeClassName='active'>
+              <li>
+                <span>
+                  <ShoppingBagOutlinedIcon />
+                </span>
+                المخزون
+              </li>
+            </NavLink>
           </ul>
         </SidebarMenu>
         <SidebarBottom>
           <Avatar>
             <NavLink to='/'>
-              <img src={userImg} alt='Avatar' />
-              <span>{admin.username}</span>
+              <div className='d-flex align-items-center'>
+                <img
+                  src={userImg}
+                  alt='Avatar'
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                  }}
+                />
+                <span>{admin.username}</span>
+              </div>
             </NavLink>
           </Avatar>
         </SidebarBottom>

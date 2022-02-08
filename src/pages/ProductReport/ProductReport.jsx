@@ -40,7 +40,7 @@ const ProductReport = () => {
         'price',
         'quantity',
         'shipment_type',
-        'customer_id',
+        'customer_name',
         'total_price',
         'paid',
         'barcode',
@@ -53,7 +53,7 @@ const ProductReport = () => {
       report.price,
       report.quantity,
       report.shipment_type,
-      report.customer_id,
+      report.name,
       report.total_price,
       report.paid,
       report.barcode,
@@ -171,7 +171,7 @@ const ProductReport = () => {
                       <TableCell width={50}>السعر</TableCell>
                       <TableCell width={50}>مقدار</TableCell>
                       <TableCell width={50}>نوع الشحن</TableCell>
-                      <TableCell width={50}>هوية الزبون</TableCell>
+                      <TableCell width={50}>الزبون</TableCell>
                       <TableCell width={50}>السعر الكلي</TableCell>
                       <TableCell width={50}>يدفع</TableCell>
                       <TableCell width={50}>الباركود</TableCell>
@@ -195,7 +195,7 @@ const ProductReport = () => {
                           <TableCell>{report.price}</TableCell>
                           <TableCell>{report.quantity}</TableCell>
                           <TableCell>{report.shipment_type}</TableCell>
-                          <TableCell>{report.customer_id}</TableCell>
+                          <TableCell>{report.name}</TableCell>
                           <TableCell>{report.total_price}</TableCell>
                           <TableCell>
                             {report.paid == '1' ? 'Paid' : 'UnPaid'}

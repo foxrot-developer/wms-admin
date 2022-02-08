@@ -13,6 +13,7 @@ import thunk from 'redux-thunk';
 import adminReducer from './store/admin/reducers/adminReducer';
 import productReducer from './store/product/reducers/productReducer';
 import shelfReducer from './store/shelf/reducers/shelfReducer';
+import stockReducer from './store/stock/reducer/stockReducer';
 
 const { persistStore, persistReducer } = require('redux-persist');
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   admin: adminReducer,
   product: productReducer,
   shelf: shelfReducer,
+  stock: stockReducer,
 });
 
 let devtools, store;

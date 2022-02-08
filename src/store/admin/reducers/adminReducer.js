@@ -4,6 +4,7 @@ const initialState = {
   admin: {},
   loggedIn: false,
   users: [],
+  checkin: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.payload,
+      };
+    case actionTypes.GET_ALL_USER_CHECKIN:
+      return {
+        ...state,
+        checkin: action.payload,
       };
     default:
       return state;

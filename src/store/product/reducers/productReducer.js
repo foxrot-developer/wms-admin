@@ -6,6 +6,7 @@ const initialState = {
   shelfProducts: [],
   productReport: [],
   productNearToExpire: [],
+  barcodeProduct: [],
 };
 
 const ProductReducer = (state = initialState, action) => {
@@ -34,6 +35,11 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         productNearToExpire: action.payload,
+      };
+    case actionTypes.GET_PRODUCT_BY_BARCODE:
+      return {
+        ...state,
+        barcodeProduct: action.payload,
       };
     default:
       return state;

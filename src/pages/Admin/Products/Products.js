@@ -5,6 +5,7 @@ import SideBar from '../../../components/Dashboard/Sidebar/SideBar';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Barcode from 'react-barcode';
 import {
   FormControl,
   Grid,
@@ -31,6 +32,7 @@ import {
   getAllPallentProducts,
   getAllShelfDetail,
   getAllShelfProducts,
+  getAllStock,
 } from '../../../store/storeIndex';
 import {
   Header,
@@ -38,23 +40,29 @@ import {
   ModalBtnContainer,
   ModalContainer,
   ModalContent,
+  ModalSearchContainer,
 } from '../../../components/Global/GlobalStyle';
+import PrintIcon from '@mui/icons-material/Print';
+import BarcodeReader from 'react-barcode-reader';
+import { getProductByBarcode } from '../../../store/product/actions/actionCreators';
+import { GET_PRODUCT_BY_BARCODE } from '../../../store/product/actions/actionTypes';
+
 export const Products = () => {
   const dispatch = useDispatch();
   const floorProducts = useSelector((state) => state.product.floorProducts);
   const pallentProducts = useSelector((state) => state.product.pallentProducts);
   const shelfProducts = useSelector((state) => state.product.shelfProducts);
   const shelfAllDetail = useSelector((state) => state.shelf.shelfAllDetail);
+  const barcodeProduct = useSelector((state) => state.product.barcodeProduct);
+  const stock = useSelector((state) => state.stock.stock);
   const [openModal, setOpenModal] = useState(false);
   const [productData, setProductData] = useState({
-    product_name: '',
-    description: '',
+    product_id: '',
     storage_type: '',
     shelf_id: '',
-    price: 0,
-    quantity: 0,
+    quantity: '',
     shipment_type: '',
-    customer_id: 5,
+    customer_id: '',
     paid: '',
     created_at: formatDateToString(new Date()),
     expiry_date: '',
@@ -75,22 +83,200 @@ export const Products = () => {
     return `${date.getFullYear()}-${MM}-${dd}`;
   }
 
+  function formatDateToStringWithTime(date) {
+    var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+
+    var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
+
+    return `${date.getFullYear()}-${MM}-${dd} ${date.getUTCHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  }
+
   const [openUpdateModal, setOpenUpdateModal] = useState({
     open: false,
     id: '',
   });
 
   useEffect(() => {
+    dispatch(getAllStock());
     dispatch(getAllFloorProducts());
     dispatch(getAllShelfProducts());
     dispatch(getAllPallentProducts());
     dispatch(getAllShelfDetail());
   }, []);
 
+  const [search, setSearch] = useState('');
+
+  const handleChange = (e) => {};
+
+  const [openBarCode, setOpenBarCode] = useState({
+    open: false,
+    id: '',
+  });
+  const [openSearchModal, setOpenSearchModal] = useState(false);
+
   return (
     <Container>
       <ContentWrap>
         <SideBar />
+        <Modal open={openSearchModal}>
+          <ModalContainer>
+            <ModalContent>
+              <HeaderContainer>
+                <Header>Search Product</Header>
+                <IconButton
+                  onClick={() => {
+                    dispatch({
+                      type: GET_PRODUCT_BY_BARCODE,
+                      payload: [],
+                    });
+
+                    setOpenSearchModal(false);
+                  }}
+                  style={{ marginLeft: 'auto' }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </HeaderContainer>
+              <ModalSearchContainer>
+                <BarcodeReader
+                  onError={(err) => console.log(err)}
+                  onScan={(data) => {
+                    setSearch(data);
+                    dispatch(getProductByBarcode(data));
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  type='number'
+                  label='الكمية'
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <div
+                  style={{
+                    padding: '5px',
+                    backgroundColor: '#e0e0e0',
+                    marginLeft: '2px',
+                  }}
+                  onClick={() => {
+                    dispatch(getProductByBarcode(search));
+                  }}
+                >
+                  البحث في الباركود
+                </div>
+              </ModalSearchContainer>
+              {barcodeProduct !== undefined && barcodeProduct.length > 0 && (
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='اسم المنتج'
+                      value={barcodeProduct[0]?.product_name}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='كمية'
+                      value={barcodeProduct[0]?.quantity}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='اسم'
+                      value={barcodeProduct[0]?.name}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='السعر الكلي'
+                      value={barcodeProduct[0]?.total_price}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='الباركود'
+                      value={barcodeProduct[0]?.barcode}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='دفع'
+                      value={barcodeProduct[0]?.paid === 1 ? 'نقدي' : 'آجل'}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      type='text'
+                      label='تاريخ الانتهاء'
+                      value={formatDateToStringWithTime(
+                        new Date(barcodeProduct[0]?.expiry_date)
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ModalBtnContainer>
+                      <div
+                        onClick={() => window.print()}
+                        className='btn btn-primary'
+                      >
+                        مطبعة
+                      </div>
+                    </ModalBtnContainer>
+                  </Grid>
+                </Grid>
+              )}
+            </ModalContent>
+          </ModalContainer>
+        </Modal>
+        <Modal open={openBarCode.open}>
+          <ModalContainer>
+            <ModalContent>
+              <HeaderContainer>
+                <Header>الباركود</Header>
+                <IconButton
+                  onClick={() =>
+                    setOpenBarCode({
+                      open: false,
+                      id: '',
+                    })
+                  }
+                >
+                  <CloseIcon />
+                </IconButton>
+              </HeaderContainer>
+              <Barcode value={openBarCode.id} />
+              <ModalBtnContainer>
+                <div className='col-6 add-btn'>
+                  <div
+                    onClick={() => window.print()}
+                    className='btn btn-primary'
+                  >
+                    مطبعة
+                  </div>
+                </div>
+              </ModalBtnContainer>
+            </ModalContent>
+          </ModalContainer>
+        </Modal>
         <Modal open={openModal}>
           <ModalContainer>
             <ModalContent>
@@ -102,30 +288,25 @@ export const Products = () => {
               </HeaderContainer>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label='اسم المنتج'
-                    value={productData.product_name}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        product_name: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label='الوصف'
-                    value={productData.description}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        description: e.target.value,
-                      })
-                    }
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel id='product_id'>منتج</InputLabel>
+                    <Select
+                      fullWidth
+                      labelId='منتج'
+                      id='product_id'
+                      value={productData.product_id}
+                      onChange={(e) =>
+                        setProductData({
+                          ...productData,
+                          product_id: e.target.value,
+                        })
+                      }
+                    >
+                      {stock.map((item) => (
+                        <MenuItem value={item.id}>{item.product_name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
@@ -172,20 +353,6 @@ export const Products = () => {
                       ))}
                     </Select>
                   </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='السعر'
-                    value={productData.price}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        price: parseInt(e.target.value),
-                      })
-                    }
-                  />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -298,22 +465,7 @@ export const Products = () => {
                 </button>
                 <button
                   onClick={() => {
-                    dispatch(
-                      addProduct({
-                        product_name: productData.product_name,
-                        description: productData.description,
-                        storage_type: productData.storage_type,
-                        shelf_id: productData.shelf_id,
-                        price: productData.price,
-                        quantity: productData.quantity,
-                        shipment_type: productData.shipment_type,
-                        customer_id: productData.customer_id,
-                        paid: productData.paid,
-                        created_at: productData.created_at,
-                        expiry_date: productData.expiry_date,
-                        barcode: productData.barcode,
-                      })
-                    );
+                    dispatch(addProduct(productData));
                     setOpenModal(false);
                   }}
                   className='btn btn-success'
@@ -333,11 +485,9 @@ export const Products = () => {
                   onClick={() => {
                     setOpenUpdateModal(false);
                     setProductData({
-                      product_name: '',
-                      description: '',
+                      product_id: '',
                       storage_type: '',
                       shelf_id: '',
-                      price: '',
                       quantity: '',
                       shipment_type: '',
                       customer_id: '',
@@ -354,30 +504,25 @@ export const Products = () => {
 
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label='اسم المنتج'
-                    value={productData.product_name}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        product_name: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label='الوصف'
-                    value={productData.description}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        description: e.target.value,
-                      })
-                    }
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel id='product_id'>منتج</InputLabel>
+                    <Select
+                      fullWidth
+                      labelId='منتج'
+                      id='product_id'
+                      value={productData.product_id}
+                      onChange={(e) =>
+                        setProductData({
+                          ...productData,
+                          product_id: e.target.value,
+                        })
+                      }
+                    >
+                      {stock.map((item) => (
+                        <MenuItem value={item.id}>{item.product_name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
@@ -424,20 +569,6 @@ export const Products = () => {
                       ))}
                     </Select>
                   </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='السعر'
-                    value={productData.price}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        price: parseInt(e.target.value),
-                      })
-                    }
-                  />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -574,12 +705,25 @@ export const Products = () => {
             <div className='col-6'>
               <h2>منتجات</h2>
             </div>
-            <div className='col-6 add-btn'>
+            <div
+              className='col-6'
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
               <div
                 onClick={() => setOpenModal(true)}
                 className='btn btn-primary'
               >
                 أضف منتج
+              </div>
+              <div
+                onClick={() => setOpenSearchModal(true)}
+                className='btn btn-primary'
+                style={{ marginLeft: '1em' }}
+              >
+                البحث في الباركود
               </div>
             </div>
           </div>
@@ -590,7 +734,9 @@ export const Products = () => {
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
                     <TableRow>
-                      <TableCell width={50}>#</TableCell>
+                      <TableCell align='center' width={50}>
+                        #
+                      </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
                       <TableCell width={150}>وصف</TableCell>
                       <TableCell width={150}>السعر</TableCell>
@@ -600,7 +746,9 @@ export const Products = () => {
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
                       <TableCell width={150}>الجرف</TableCell>
-                      <TableCell width={50}>عدد</TableCell>
+                      <TableCell align='center' width={50}>
+                        عدد
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -626,7 +774,7 @@ export const Products = () => {
                           </TableCell>
                           <TableCell>{product.barcode}</TableCell>
                           <TableCell>{product.shelf_number}</TableCell>
-                          <TableCell width={50}>
+                          <TableCell align='center' width={50}>
                             <div className='d-flex align-items-center justify-content-around'>
                               <IconButton
                                 onClick={() => {
@@ -638,6 +786,16 @@ export const Products = () => {
                                 }}
                               >
                                 <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => {
+                                  setOpenBarCode({
+                                    open: true,
+                                    id: product.barcode,
+                                  });
+                                }}
+                              >
+                                <PrintIcon />
                               </IconButton>
                               <IconButton>
                                 <DeleteIcon
@@ -658,8 +816,9 @@ export const Products = () => {
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
                     <TableRow>
-                      <TableCell width={50}>#</TableCell>
-                      <TableCell width={150}>الجرف</TableCell>
+                      <TableCell align='center' width={50}>
+                        #
+                      </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
                       <TableCell width={150}>قوي</TableCell>
                       <TableCell width={150}>وصف</TableCell>
@@ -670,7 +829,9 @@ export const Products = () => {
                       <TableCell width={150}>السعر الكلي</TableCell>
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
-                      <TableCell width={50}>عدد</TableCell>
+                      <TableCell align='center' width={50}>
+                        عدد
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -685,7 +846,6 @@ export const Products = () => {
                           <TableCell component='th' scope='row'>
                             {index + 1}
                           </TableCell>
-                          <TableCell>{product.shelf_id}</TableCell>
                           <TableCell>{product.product_name}</TableCell>
                           <TableCell>{product.storage_type}</TableCell>
                           <TableCell>{product.description}</TableCell>
@@ -710,6 +870,16 @@ export const Products = () => {
                                 }}
                               >
                                 <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => {
+                                  setOpenBarCode({
+                                    open: true,
+                                    id: product.barcode,
+                                  });
+                                }}
+                              >
+                                <PrintIcon />
                               </IconButton>
                               <IconButton>
                                 <DeleteIcon
@@ -730,8 +900,9 @@ export const Products = () => {
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
                     <TableRow>
-                      <TableCell width={50}>#</TableCell>
-                      <TableCell width={150}>الجرف</TableCell>
+                      <TableCell align='center' width={50}>
+                        #
+                      </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
                       <TableCell width={150}>قوي</TableCell>
                       <TableCell width={150}>وصف</TableCell>
@@ -742,7 +913,9 @@ export const Products = () => {
                       <TableCell width={150}>السعر الكلي</TableCell>
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
-                      <TableCell width={50}>عدد</TableCell>
+                      <TableCell align='center' width={50}>
+                        عدد
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -757,7 +930,6 @@ export const Products = () => {
                           <TableCell component='th' scope='row'>
                             {index + 1}
                           </TableCell>
-                          <TableCell>{product.shelf_id}</TableCell>
                           <TableCell>{product.product_name}</TableCell>
                           <TableCell>{product.storage_type}</TableCell>
                           <TableCell>{product.description}</TableCell>
@@ -782,6 +954,16 @@ export const Products = () => {
                                 }}
                               >
                                 <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => {
+                                  setOpenBarCode({
+                                    open: true,
+                                    id: product.barcode,
+                                  });
+                                }}
+                              >
+                                <PrintIcon />
                               </IconButton>
                               <IconButton>
                                 <DeleteIcon

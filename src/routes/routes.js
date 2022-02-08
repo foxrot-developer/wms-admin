@@ -9,6 +9,8 @@ import User from '../pages/Users/User';
 import Shelf from '../pages/Shelf/Shelf';
 import ProductReport from '../pages/ProductReport/ProductReport';
 import SendSms from '../pages/SendSms/SendSms';
+import CheckIn from '../pages/CheckIn/CheckIn';
+import { Stock } from '../pages/Stock/Stock';
 
 export const MyRoutes = () => {
   return (
@@ -22,7 +24,9 @@ export const MyRoutes = () => {
           <Route path='user' element={<User />} />
           <Route path='shelf' element={<Shelf />} />
           <Route path='products-report' element={<ProductReport />} />
+          <Route path='checkin' element={<CheckIn />} />
           <Route path='send-sms' element={<SendSms />} />
+          <Route path='stock' element={<Stock />} />
         </Routes>
       </BrowserRouter>
       ,

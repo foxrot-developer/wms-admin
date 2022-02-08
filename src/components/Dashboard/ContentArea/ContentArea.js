@@ -14,45 +14,38 @@ export const ContentArea = () => {
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='قائمة المنتجات'
-              count='135'
               link='/products'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='قائمة المستخدم'
-              count='135'
               link='/user'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='قائمة الرف'
-              count='135'
               link='/shelf'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='تقرير المنتج'
-              count='135'
               link='/products-report'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='انتهاء صلاحية المنتجات'
-              count='135'
               link='/products-expiry'
-            />
-            {/* <StatsCard
-              icon={<ShoppingBagIcon />}
-              title='الفروع'
-              count='135'
-              link='/branches'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='ارسل بريد الكتروني'
-              count='135'
-              link='/send-sms'
-            /> */}
+              title='تسجيل وصول المستخدم'
+              link='/checkin'
+            />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='المخزون'
+              link='/stock'
+            />
           </Row>
         </Container>
       </Main>
