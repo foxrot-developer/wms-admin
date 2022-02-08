@@ -197,7 +197,9 @@ const ProductReport = () => {
                           <TableCell>{report.shipment_type}</TableCell>
                           <TableCell>{report.customer_id}</TableCell>
                           <TableCell>{report.total_price}</TableCell>
-                          <TableCell>{report.paid}</TableCell>
+                          <TableCell>
+                            {report.paid == '1' ? 'Paid' : 'UnPaid'}
+                          </TableCell>
                           <TableCell>{report.barcode}</TableCell>
                         </TableRow>
                       ))}

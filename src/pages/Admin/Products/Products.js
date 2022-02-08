@@ -621,7 +621,9 @@ export const Products = () => {
                           <TableCell>{product.quantity}</TableCell>
                           <TableCell>{product.shipment_type}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
-                          <TableCell>{product.paid}</TableCell>
+                          <TableCell>
+                            {product.paid == '1' ? 'Paid' : 'UnPaid'}
+                          </TableCell>
                           <TableCell>{product.barcode}</TableCell>
                           <TableCell>{product.shelf_number}</TableCell>
                           <TableCell width={50}>
@@ -692,7 +694,9 @@ export const Products = () => {
                           <TableCell>{product.shipment_type}</TableCell>
                           <TableCell>{product.customer_id}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
-                          <TableCell>{product.paid}</TableCell>
+                          <TableCell>
+                            {product.paid == '1' ? 'Paid' : 'UnPaid'}
+                          </TableCell>
                           <TableCell>{product.barcode}</TableCell>
                           <TableCell width={30}>
                             <div className='d-flex align-items-center justify-content-around'>
@@ -762,7 +766,9 @@ export const Products = () => {
                           <TableCell>{product.shipment_type}</TableCell>
                           <TableCell>{product.customer_id}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
-                          <TableCell>{product.paid}</TableCell>
+                          <TableCell>
+                            {product.paid == '1' ? 'Paid' : 'UnPaid'}
+                          </TableCell>
                           <TableCell>{product.barcode}</TableCell>
                           <TableCell width={30}>
                             <div className='d-flex align-items-center justify-content-around'>
