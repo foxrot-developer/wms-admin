@@ -23,7 +23,7 @@ const CheckIn = () => {
   const dispatch = useDispatch();
   const checkin = useSelector((state) => state.admin.checkin);
   const admin = useSelector((state) => state.admin.admin);
-  console.log(checkin, admin);
+  console.log({ checkin });
   useEffect(() => {
     dispatch(getAllUserCheckIn(admin.id));
   }, []);
@@ -75,20 +75,22 @@ const CheckIn = () => {
                         <TableCell component='th' scope='row'>
                           {index + 1}
                         </TableCell>
-                        <TableCell>{admin.product_name}</TableCell>
-                        <TableCell>{admin.quantity}</TableCell>
-                        <TableCell>{admin.name}</TableCell>
-                        <TableCell>{admin.total_price}</TableCell>
-                        <TableCell>{admin.barcode}</TableCell>
-                        <TableCell>{admin.paid}</TableCell>
+                        <TableCell>{shelf.product_name}</TableCell>
+                        <TableCell>{shelf.quantity}</TableCell>
+                        <TableCell>{shelf.name}</TableCell>
+                        <TableCell>{shelf.total_price}</TableCell>
+                        <TableCell>{shelf.barcode}</TableCell>
                         <TableCell>
-                          {formatDateToString(new Date(admin.expiry_date))}
+                          {shelf.paid === 1 ? 'Paid' : 'UnPaid'}
                         </TableCell>
                         <TableCell>
-                          {formatDateToString(new Date(admin.checkin_time))}
+                          {formatDateToString(new Date(shelf.expiry_date))}
                         </TableCell>
                         <TableCell>
-                          {formatDateToString(new Date(admin.checkout_time))}
+                          {formatDateToString(new Date(shelf.checkin_time))}
+                        </TableCell>
+                        <TableCell>
+                          {formatDateToString(new Date(shelf.checkout_time))}
                         </TableCell>
                       </TableRow>
                     ))}

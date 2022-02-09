@@ -36,6 +36,7 @@ export const getAllUsers = () => (dispatch) => {
 export const getAllUserCheckIn = () => (dispatch) => {
   Axios.get(`product/product-logs`)
     .then((response) => {
+      console.log({ response });
       dispatch({
         type: actionTypes.GET_ALL_USER_CHECKIN,
         payload: response.data.response,
