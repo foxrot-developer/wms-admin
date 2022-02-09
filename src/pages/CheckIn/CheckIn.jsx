@@ -82,13 +82,13 @@ const CheckIn = () => {
                         <TableCell>{admin.barcode}</TableCell>
                         <TableCell>{admin.paid}</TableCell>
                         <TableCell>
-                          {formatDateToString(admin.expiry_date)}
+                          {formatDateToString(new Date(admin.expiry_date))}
                         </TableCell>
                         <TableCell>
-                          {formatDateToString(admin.checkin_time)}
+                          {formatDateToString(new Date(admin.checkin_time))}
                         </TableCell>
                         <TableCell>
-                          {formatDateToString(admin.checkout_time)}
+                          {formatDateToString(new Date(admin.checkout_time))}
                         </TableCell>
                       </TableRow>
                     ))}
