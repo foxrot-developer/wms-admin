@@ -88,7 +88,7 @@ const Invoice = () => {
                   </TableHead>
                   <TableBody>
                     {invoice !== undefined &&
-                      invoice.paid.data.map((shelf, index) => (
+                      invoice.paid?.data.map((shelf, index) => (
                         <TableRow
                           key={index}
                           sx={{
@@ -122,7 +122,7 @@ const Invoice = () => {
                   </TableHead>
                   <TableBody>
                     {invoice !== undefined &&
-                      invoice.unpaid.data.map((shelf, index) => (
+                      invoice.unpaid?.data.map((shelf, index) => (
                         <TableRow
                           key={index}
                           sx={{
