@@ -95,7 +95,7 @@ const Invoice = () => {
                   <TableBody>
                     {invoice !== undefined &&
                       invoice.paid !== undefined &&
-                      invoice.paid.length > 0 &&
+                      invoice.paid.data.length > 0 &&
                       invoice.paid?.data.map((shelf, index) => (
                         <TableRow
                           key={index}
