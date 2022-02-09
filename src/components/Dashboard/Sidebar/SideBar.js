@@ -82,7 +82,7 @@ const SideBar = () => {
                 تسجيل وصول المستخدم
               </li>
             </NavLink>
-            <NavLink to='/checkin' activeClassName='active'>
+            <NavLink to='/stock' activeClassName='active'>
               <li>
                 <span>
                   <ShoppingBagOutlinedIcon />
