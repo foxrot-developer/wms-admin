@@ -60,7 +60,7 @@ const CheckIn = () => {
                   <TableCell scope='col'>الباركود</TableCell>
                   <TableCell scope='col'>دفع</TableCell>
                   <TableCell scope='col'>تاريخ الانتهاء</TableCell>
-                  <TableCell scope='col'>checkin_time</TableCell>
+                  <TableCell scope='col'>وقت الدجاج</TableCell>
                   <TableCell scope='col'>تحقق من الوقت</TableCell>
                 </TableHead>
                 <TableBody>
