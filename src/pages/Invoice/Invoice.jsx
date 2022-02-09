@@ -107,6 +107,7 @@ const Invoice = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Header>مجموع: {invoice.paid.total[0].total_amount}</Header>
             </div>
             <div className='col-6'>
               <Header>غير مدفوع الأجر</Header>
@@ -140,6 +141,7 @@ const Invoice = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <Header>مجموع: {invoice.unpaid.total[0].total_amount}</Header>
             </div>
           </div>
         </div>
