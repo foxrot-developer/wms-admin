@@ -38,13 +38,18 @@ export const ContentArea = () => {
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='تسجيل وصول المستخدم'
-              link='/checkin'
+              title='سجل المنتج'
+              link='/product-log'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
               title='المخزون'
               link='/stock'
+            />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='فاتورة'
+              link='/invoice'
             />
           </Row>
         </Container>

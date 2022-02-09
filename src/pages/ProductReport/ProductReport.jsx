@@ -39,11 +39,9 @@ const ProductReport = () => {
         'description',
         'price',
         'quantity',
-        'shipment_type',
         'customer_name',
         'total_price',
         'paid',
-        'barcode',
       ],
     ],
     body: productReport.map((report) => [
@@ -52,11 +50,9 @@ const ProductReport = () => {
       report.description,
       report.price,
       report.quantity,
-      report.shipment_type,
       report.name,
       report.total_price,
-      report.paid,
-      report.barcode,
+      report.paid === 1 ? 'paid' : 'not paid',
     ]),
   });
 
@@ -170,11 +166,9 @@ const ProductReport = () => {
                       <TableCell width={50}>يصف</TableCell>
                       <TableCell width={50}>السعر</TableCell>
                       <TableCell width={50}>مقدار</TableCell>
-                      <TableCell width={50}>نوع الشحن</TableCell>
                       <TableCell width={50}>الزبون</TableCell>
                       <TableCell width={50}>السعر الكلي</TableCell>
                       <TableCell width={50}>يدفع</TableCell>
-                      <TableCell width={50}>الباركود</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -194,13 +188,11 @@ const ProductReport = () => {
                           <TableCell>{report.description}</TableCell>
                           <TableCell>{report.price}</TableCell>
                           <TableCell>{report.quantity}</TableCell>
-                          <TableCell>{report.shipment_type}</TableCell>
                           <TableCell>{report.name}</TableCell>
                           <TableCell>{report.total_price}</TableCell>
                           <TableCell>
                             {report.paid == '1' ? 'Paid' : 'UnPaid'}
                           </TableCell>
-                          <TableCell>{report.barcode}</TableCell>
                         </TableRow>
                       ))}
                   </TableBody>

@@ -5,6 +5,7 @@ const initialState = {
   loggedIn: false,
   users: [],
   checkin: [],
+  invoice: {},
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         checkin: action.payload,
+      };
+    case actionTypes.GET_CUSTOMER_INVOICE:
+      return {
+        ...state,
+        invoice: action.payload,
       };
     default:
       return state;

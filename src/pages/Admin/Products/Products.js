@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Barcode from 'react-barcode';
 import {
+  Autocomplete,
   FormControl,
   Grid,
   IconButton,
@@ -33,10 +34,12 @@ import {
   getAllShelfDetail,
   getAllShelfProducts,
   getAllStock,
+  getAllUsers,
 } from '../../../store/storeIndex';
 import {
   Header,
   HeaderContainer,
+  InnerConatiner,
   ModalBtnContainer,
   ModalContainer,
   ModalContent,
@@ -54,6 +57,7 @@ export const Products = () => {
   const shelfProducts = useSelector((state) => state.product.shelfProducts);
   const shelfAllDetail = useSelector((state) => state.shelf.shelfAllDetail);
   const barcodeProduct = useSelector((state) => state.product.barcodeProduct);
+  const users = useSelector((state) => state.admin.users);
   const stock = useSelector((state) => state.stock.stock);
   const [openModal, setOpenModal] = useState(false);
   const [productData, setProductData] = useState({
@@ -61,7 +65,6 @@ export const Products = () => {
     storage_type: '',
     shelf_id: '',
     quantity: '',
-    shipment_type: '',
     customer_id: '',
     paid: '',
     created_at: formatDateToString(new Date()),
@@ -83,12 +86,16 @@ export const Products = () => {
     return `${date.getFullYear()}-${MM}-${dd}`;
   }
 
-  function formatDateToStringWithTime(date) {
+  function formatDateAndTimeString(date) {
     var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
 
     var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
 
-    return `${date.getFullYear()}-${MM}-${dd} ${date.getUTCHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return `${date.getFullYear()}-${MM}-${dd} ${
+      (date.getHours() < 10 ? '0' : '') + date.getHours()
+    }:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}:${
+      (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
+    }`;
   }
 
   const [openUpdateModal, setOpenUpdateModal] = useState({
@@ -102,11 +109,10 @@ export const Products = () => {
     dispatch(getAllShelfProducts());
     dispatch(getAllPallentProducts());
     dispatch(getAllShelfDetail());
+    dispatch(getAllUsers());
   }, []);
 
   const [search, setSearch] = useState('');
-
-  const handleChange = (e) => {};
 
   const [openBarCode, setOpenBarCode] = useState({
     open: false,
@@ -227,7 +233,7 @@ export const Products = () => {
                       disabled
                       type='text'
                       label='تاريخ الانتهاء'
-                      value={formatDateToStringWithTime(
+                      value={formatDateAndTimeString(
                         new Date(barcodeProduct[0]?.expiry_date)
                       )}
                     />
@@ -370,28 +376,6 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='shipment_type'>نوع الشحن</InputLabel>
-                    <Select
-                      fullWidth
-                      id='shipment_type'
-                      label='نوع الشحن'
-                      defaultValue=''
-                      value={productData.shipment_type}
-                      onChange={(e) =>
-                        setProductData({
-                          ...productData,
-                          shipment_type: e.target.value,
-                        })
-                      }
-                    >
-                      <MenuItem value=''>اختر نوع الشحن</MenuItem>
-                      <MenuItem value='local'>المحلي</MenuItem>
-                      <MenuItem value='international'>الدولي</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl fullWidth>
                     <InputLabel id='paid'>الدفع</InputLabel>
                     <Select
                       fullWidth
@@ -425,20 +409,25 @@ export const Products = () => {
                       })
                     }
                   />
-                </Grid>{' '}
+                </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='رقم الزبون'
-                    value={productData.customer_id}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        customer_id: parseInt(e.target.value),
-                      })
-                    }
-                  />
+                  <FormControl fullWidth>
+                    <Autocomplete
+                      fullWidth
+                      id='customers'
+                      options={users}
+                      onChange={(e, value) => {
+                        setProductData({
+                          ...productData,
+                          customer_id: value.id,
+                        });
+                      }}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField {...params} label='Customer Name' />
+                      )}
+                    />
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -489,7 +478,6 @@ export const Products = () => {
                       storage_type: '',
                       shelf_id: '',
                       quantity: '',
-                      shipment_type: '',
                       customer_id: '',
                       paid: '',
                       created_at: formatDateToString(new Date()),
@@ -586,28 +574,6 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='shipment_type'>نوع الشحن</InputLabel>
-                    <Select
-                      fullWidth
-                      id='shipment_type'
-                      label='نوع الشحن'
-                      defaultValue=''
-                      value={productData.shipment_type}
-                      onChange={(e) =>
-                        setProductData({
-                          ...productData,
-                          shipment_type: e.target.value,
-                        })
-                      }
-                    >
-                      <MenuItem value=''>اختر نوع الشحن</MenuItem>
-                      <MenuItem value='local'>المحلي</MenuItem>
-                      <MenuItem value='international'>الدولي</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl fullWidth>
                     <InputLabel id='paid'>الدفع</InputLabel>
                     <Select
                       fullWidth
@@ -643,18 +609,23 @@ export const Products = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    type='number'
-                    label='رقم الزبون'
-                    value={productData.customer_id}
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        customer_id: parseInt(e.target.value),
-                      })
-                    }
-                  />
+                  <FormControl fullWidth>
+                    <Autocomplete
+                      fullWidth
+                      id='customers'
+                      options={users}
+                      onChange={(e, value) => {
+                        setProductData({
+                          ...productData,
+                          customer_id: value.id,
+                        });
+                      }}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField {...params} label='Customer Name' />
+                      )}
+                    />
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -692,15 +663,7 @@ export const Products = () => {
             </ModalContent>
           </ModalContainer>
         </Modal>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '5em',
-            overflow: 'auto ',
-            height: '100vh',
-          }}
-        >
+        <InnerConatiner>
           <div className='row'>
             <div className='col-6'>
               <h2>منتجات</h2>
@@ -738,10 +701,10 @@ export const Products = () => {
                         #
                       </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
+                      <TableCell width={150}>اسم</TableCell>
                       <TableCell width={150}>وصف</TableCell>
                       <TableCell width={150}>السعر</TableCell>
                       <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>نوع الشحن</TableCell>
                       <TableCell width={150}>السعر الكلي</TableCell>
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
@@ -764,10 +727,10 @@ export const Products = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell>{product.product_name}</TableCell>
+                          <TableCell>{product.name}</TableCell>
                           <TableCell>{product.description}</TableCell>
                           <TableCell>{product.price}</TableCell>
                           <TableCell>{product.quantity}</TableCell>
-                          <TableCell>{product.shipment_type}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
                           <TableCell>
                             {product.paid == '1' ? 'Paid' : 'UnPaid'}
@@ -820,12 +783,11 @@ export const Products = () => {
                         #
                       </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
+                      <TableCell width={150}>اسم</TableCell>
                       <TableCell width={150}>قوي</TableCell>
                       <TableCell width={150}>وصف</TableCell>
                       <TableCell width={150}>السعر</TableCell>
                       <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>نوع الشحن</TableCell>
-                      <TableCell width={150}>هوية الزبون</TableCell>
                       <TableCell width={150}>السعر الكلي</TableCell>
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
@@ -847,12 +809,11 @@ export const Products = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell>{product.product_name}</TableCell>
+                          <TableCell>{product.name}</TableCell>
                           <TableCell>{product.storage_type}</TableCell>
                           <TableCell>{product.description}</TableCell>
                           <TableCell>{product.price}</TableCell>
                           <TableCell>{product.quantity}</TableCell>
-                          <TableCell>{product.shipment_type}</TableCell>
-                          <TableCell>{product.customer_id}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
                           <TableCell>
                             {product.paid == '1' ? 'Paid' : 'UnPaid'}
@@ -904,12 +865,11 @@ export const Products = () => {
                         #
                       </TableCell>
                       <TableCell width={150}>اسم المنتج</TableCell>
+                      <TableCell width={150}>اسم</TableCell>
                       <TableCell width={150}>قوي</TableCell>
                       <TableCell width={150}>وصف</TableCell>
                       <TableCell width={150}>السعر</TableCell>
                       <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>نوع الشحن</TableCell>
-                      <TableCell width={150}>هوية الزبون</TableCell>
                       <TableCell width={150}>السعر الكلي</TableCell>
                       <TableCell width={150}>دفع</TableCell>
                       <TableCell width={150}>الباركود</TableCell>
@@ -931,12 +891,11 @@ export const Products = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell>{product.product_name}</TableCell>
+                          <TableCell>{product.name}</TableCell>
                           <TableCell>{product.storage_type}</TableCell>
                           <TableCell>{product.description}</TableCell>
                           <TableCell>{product.price}</TableCell>
                           <TableCell>{product.quantity}</TableCell>
-                          <TableCell>{product.shipment_type}</TableCell>
-                          <TableCell>{product.customer_id}</TableCell>
                           <TableCell>{product.total_price}</TableCell>
                           <TableCell>
                             {product.paid == '1' ? 'Paid' : 'UnPaid'}
@@ -981,7 +940,7 @@ export const Products = () => {
               </TableContainer>
             </div>
           </div>
-        </div>
+        </InnerConatiner>
       </ContentWrap>
     </Container>
   );

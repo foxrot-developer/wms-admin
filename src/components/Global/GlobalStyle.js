@@ -38,6 +38,9 @@ export const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media print {
+    background-color: white;
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -89,4 +92,16 @@ export const ModalSearchContainer = styled.div`
     display: none;
   }
   margin-bottom: 20px;
+`;
+
+export const InnerConatiner = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+  overflow-y: scroll;
+  height: 100vh;
+  @media print {
+    display: none;
+    overflow-y: hidden;
+  }
 `;

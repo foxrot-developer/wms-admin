@@ -11,6 +11,7 @@ import ProductReport from '../pages/ProductReport/ProductReport';
 import SendSms from '../pages/SendSms/SendSms';
 import CheckIn from '../pages/CheckIn/CheckIn';
 import { Stock } from '../pages/Stock/Stock';
+import Invoice from '../pages/Invoice/Invoice';
 
 export const MyRoutes = () => {
   return (
@@ -24,8 +25,9 @@ export const MyRoutes = () => {
           <Route path='user' element={<User />} />
           <Route path='shelf' element={<Shelf />} />
           <Route path='products-report' element={<ProductReport />} />
-          <Route path='checkin' element={<CheckIn />} />
+          <Route path='product-log' element={<CheckIn />} />
           <Route path='send-sms' element={<SendSms />} />
+          <Route path='invoice' element={<Invoice />} />
           <Route path='stock' element={<Stock />} />
         </Routes>
       </BrowserRouter>

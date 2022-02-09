@@ -32,7 +32,11 @@ const CheckIn = () => {
 
     var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
 
-    return `${date.getFullYear()}-${MM}-${dd} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return `${date.getFullYear()}-${MM}-${dd} ${
+      (date.getHours() < 10 ? '0' : '') + date.getHours()
+    }:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}:${
+      (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
+    }`;
   }
   return (
     <Container>
@@ -49,8 +53,15 @@ const CheckIn = () => {
               <Table sx={{ minWidth: 450 }} aria-label='simple table'>
                 <TableHead>
                   <TableCell scope='col'>#</TableCell>
+                  <TableCell scope='col'>اسم المنتج</TableCell>
+                  <TableCell scope='col'>كمية</TableCell>
                   <TableCell scope='col'>اسم</TableCell>
-                  <TableCell scope='col'>وقت تسجيل الوصول</TableCell>
+                  <TableCell scope='col'>السعر الكلي</TableCell>
+                  <TableCell scope='col'>الباركود</TableCell>
+                  <TableCell scope='col'>دفع</TableCell>
+                  <TableCell scope='col'>تاريخ الانتهاء</TableCell>
+                  <TableCell scope='col'>checkin_time</TableCell>
+                  <TableCell scope='col'>تحقق من الوقت</TableCell>
                 </TableHead>
                 <TableBody>
                   {checkin !== undefined &&
@@ -64,9 +75,20 @@ const CheckIn = () => {
                         <TableCell component='th' scope='row'>
                           {index + 1}
                         </TableCell>
+                        <TableCell>{admin.product_name}</TableCell>
+                        <TableCell>{admin.quantity}</TableCell>
                         <TableCell>{admin.name}</TableCell>
+                        <TableCell>{admin.total_price}</TableCell>
+                        <TableCell>{admin.barcode}</TableCell>
+                        <TableCell>{admin.paid}</TableCell>
                         <TableCell>
-                          {formatDateToString(new Date(shelf.checkin_time))}
+                          {formatDateToString(admin.expiry_date)}
+                        </TableCell>
+                        <TableCell>
+                          {formatDateToString(admin.checkin_time)}
+                        </TableCell>
+                        <TableCell>
+                          {formatDateToString(admin.checkout_time)}
                         </TableCell>
                       </TableRow>
                     ))}

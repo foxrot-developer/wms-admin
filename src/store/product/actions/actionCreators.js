@@ -3,6 +3,7 @@ import toast from '../../../shared/toast/toast';
 import Axios from '../../../axios/axios';
 
 export const addProduct = (data) => (dispatch) => {
+  data.checkin_time = formatDateAndTimeString(new Date());
   Axios.post('product/add', data)
     .then((response) => {
       dispatch(getAllProducts());
@@ -139,23 +140,28 @@ export const getProductNearToExpire = () => (dispatch) => {
 export const getProductByBarcode = (barcode) => (dispatch) => {
   Axios.post('product/barcode-reader', {
     barcode: barcode,
+    checkout_time: formatDateAndTimeString(new Date()),
   })
     .then((response) => {
-      dispatch({
-        type: actionTypes.GET_PRODUCT_BY_BARCODE,
-        payload: response.data.response,
-      });
+      toast.success(response.data.message);
     })
     .catch((error) => {
-      dispatch({
-        type: actionTypes.GET_PRODUCT_BY_BARCODE,
-        payload: [],
-      });
       console.log(error);
       toast.error(error.response.data.message);
     });
 };
 
+function formatDateAndTimeString(date) {
+  var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+
+  var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
+
+  return `${date.getFullYear()}-${MM}-${dd} ${
+    (date.getHours() < 10 ? '0' : '') + date.getHours()
+  }:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}:${
+    (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
+  }`;
+}
 const formatDateToString = (date) => {
   var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
 

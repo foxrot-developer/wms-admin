@@ -33,8 +33,8 @@ export const getAllUsers = () => (dispatch) => {
     });
 };
 
-export const getAllUserCheckIn = (id) => (dispatch) => {
-  Axios.get(`admin/checkin/${id}`)
+export const getAllUserCheckIn = () => (dispatch) => {
+  Axios.get(`product/product-logs`)
     .then((response) => {
       dispatch({
         type: actionTypes.GET_ALL_USER_CHECKIN,
@@ -43,6 +43,22 @@ export const getAllUserCheckIn = (id) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error.response.data.message);
+    });
+};
+
+export const getCustomerInvoice = (id) => (dispatch) => {
+  Axios.post('product/calculate-price', {
+    customer_id: id,
+  })
+    .then((response) => {
+      dispatch({
+        type: actionTypes.GET_CUSTOMER_INVOICE,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
+      toast.error(error.response.data.message);
     });
 };
 

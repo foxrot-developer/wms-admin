@@ -74,12 +74,20 @@ const SideBar = () => {
                 انتهاء صلاحية المنتجات
               </li>
             </NavLink>
-            <NavLink to='/checkin' activeClassName='active'>
+            <NavLink to='/product-log' activeClassName='active'>
               <li>
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                تسجيل وصول المستخدم
+                سجل المنتج
+              </li>
+            </NavLink>
+            <NavLink to='/invoice' activeClassName='active'>
+              <li>
+                <span>
+                  <ShoppingBagOutlinedIcon />
+                </span>
+                فاتورة
               </li>
             </NavLink>
             <NavLink to='/stock' activeClassName='active'>

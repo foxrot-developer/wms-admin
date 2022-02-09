@@ -1,4 +1,4 @@
-export { admin_login } from './admin/actions/actionCreators.js';
+export { admin_login, getAllUsers } from './admin/actions/actionCreators.js';
 
 export {
   getAllFloorProducts,
