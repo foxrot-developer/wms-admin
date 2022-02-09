@@ -27,13 +27,19 @@ import {
   TextField,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomerInvoice } from '../../store/admin/actions/actionCreators';
+import {
+  getAllUsers,
+  getCustomerInvoice,
+} from '../../store/admin/actions/actionCreators';
 
 const Invoice = () => {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.admin.invoice);
   const users = useSelector((state) => state.admin.users);
   const [data, setData] = React.useState('');
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
   return (
     <Container>
       <ContentWrap>
@@ -88,6 +94,8 @@ const Invoice = () => {
                   </TableHead>
                   <TableBody>
                     {invoice !== undefined &&
+                      invoice.paid !== undefined &&
+                      invoice.paid.length > 0 &&
                       invoice.paid?.data.map((shelf, index) => (
                         <TableRow
                           key={index}
@@ -122,7 +130,9 @@ const Invoice = () => {
                   </TableHead>
                   <TableBody>
                     {invoice !== undefined &&
-                      invoice.unpaid?.data.map((shelf, index) => (
+                      invoice.unpaid !== undefined &&
+                      invoice.unpaid?.data.length > 0 &&
+                      invoice.unpaid.data.map((shelf, index) => (
                         <TableRow
                           key={index}
                           sx={{
