@@ -6,6 +6,7 @@ export const Container = styled.div`
 export const ContentWrap = styled.div`
   display: flex;
   width: 100%;
+  height: 100vh;
   .add-btn {
     display: flex;
     justify-content: end;
@@ -97,7 +98,8 @@ export const ModalSearchContainer = styled.div`
 export const InnerConatiner = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 3em;
+  padding: 1em;
+  width: 100%;
   overflow-y: scroll;
   height: 100vh;
   @media print {

@@ -143,7 +143,13 @@ const Shelf = () => {
             </ModalContent>
           </ModalContainer>
         </Modal>
-        <div className='container p-md-5 '>
+        <div
+          style={{
+            height: '100vh',
+            overflow: 'auto',
+          }}
+          className='container p-md-5 '
+        >
           <div className='row'>
             <div className='col-6'>
               <h2>رف الدكان (ق)</h2>

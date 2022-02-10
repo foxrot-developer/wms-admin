@@ -45,10 +45,16 @@ const CheckIn = () => {
         <div className='container p-md-5 '>
           <div className='row'>
             <div className='col-6'>
-              <h2>تحقق في</h2>
+              <h2>سجل المنتج</h2>
             </div>
           </div>
-          <div className='row mt-6'>
+          <div
+            style={{
+              height: '70vh',
+              overflow: 'auto',
+            }}
+            className='row mt-6'
+          >
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 450 }} aria-label='simple table'>
                 <TableHead>

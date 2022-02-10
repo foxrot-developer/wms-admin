@@ -5,6 +5,7 @@ const AdSidebar = styled.div`
   background-color: #050a30;
   min-width: 15%;
   position: relative;
+  overflow-y: auto;
   @media print {
     display: none;
   }

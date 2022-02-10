@@ -3,6 +3,7 @@ import {
   Container,
   ContentWrap,
   Header,
+  InnerConatiner,
 } from '../../components/Global/GlobalStyle';
 import SideBar from '../../components/Dashboard/Sidebar/SideBar';
 import jsPDF from 'jspdf';
@@ -69,92 +70,92 @@ const ProductReport = () => {
     <Container>
       <ContentWrap>
         <SideBar />
-        <div className='container p-md-5 '>
-          <div className='row'>
-            <div className='col-6'>
-              <h2>ا تقرير المنتج</h2>
-            </div>
-            <div className='col-6 add-btn '>
-              <div
-                onClick={() => {
-                  doc.save('table.pdf');
-                }}
-                className='btn btn-primary'
-              >
-                PDF
+        <InnerConatiner>
+          <div className='container p-md-5 '>
+            <div className='row'>
+              <div className='col-6'>
+                <h2>تقرير المنتج</h2>
+              </div>
+              <div className='col-6 add-btn '>
+                <div
+                  onClick={() => {
+                    doc.save('table.pdf');
+                  }}
+                  className='btn btn-primary'
+                >
+                  PDF
+                </div>
               </div>
             </div>
-          </div>
-          <div className='row mt-5'>
-            <div className='col-12'>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor='customer_id'>العميل</InputLabel>
-                    <Select
-                      id='storage_type'
-                      label='نوع التخزين'
-                      value={searchData.customer_id}
+            <div className='row mt-5'>
+              <div className='col-12'>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <InputLabel htmlFor='customer_id'>العميل</InputLabel>
+                      <Select
+                        id='storage_type'
+                        label='نوع التخزين'
+                        value={searchData.customer_id}
+                        onChange={(e) =>
+                          setSearchData({
+                            ...searchData,
+                            customer_id: e.target.value,
+                          })
+                        }
+                      >
+                        <MenuItem value=''>
+                          <em>لا أحد</em>
+                        </MenuItem>
+                        {user.map((item) => (
+                          <MenuItem value={item.id}>{item.name}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <TextField
+                      fullWidth
+                      id='from'
+                      type='date'
+                      label='من'
+                      value={searchData.from}
                       onChange={(e) =>
                         setSearchData({
                           ...searchData,
-                          customer_id: e.target.value,
+                          from: e.target.value,
                         })
                       }
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <TextField
+                      fullWidth
+                      id='to'
+                      type='date'
+                      label='الى'
+                      value={searchData.to}
+                      onChange={(e) =>
+                        setSearchData({
+                          ...searchData,
+                          to: e.target.value,
+                        })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <div
+                      onClick={() => {
+                        dispatch(getProductReport(searchData));
+                      }}
+                      className='btn btn-primary'
                     >
-                      <MenuItem value=''>
-                        <em>لا أحد</em>
-                      </MenuItem>
-                      {user.map((item) => (
-                        <MenuItem value={item.id}>{item.name}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                      بحث
+                    </div>
+                  </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    fullWidth
-                    id='from'
-                    type='date'
-                    label='من'
-                    value={searchData.from}
-                    onChange={(e) =>
-                      setSearchData({
-                        ...searchData,
-                        from: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    fullWidth
-                    id='to'
-                    type='date'
-                    label='الى'
-                    value={searchData.to}
-                    onChange={(e) =>
-                      setSearchData({
-                        ...searchData,
-                        to: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
-                <Grid item xs={1}>
-                  <div
-                    onClick={() => {
-                      dispatch(getProductReport(searchData));
-                    }}
-                    className='btn btn-primary'
-                  >
-                    بحث
-                  </div>
-                </Grid>
-              </Grid>
+              </div>
             </div>
-          </div>
-          <div className='row mt-5'>
             <div className='col-12 '>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 450 }} aria-label='simple table'>
@@ -200,7 +201,7 @@ const ProductReport = () => {
               </TableContainer>
             </div>
           </div>
-        </div>
+        </InnerConatiner>
       </ContentWrap>
     </Container>
   );

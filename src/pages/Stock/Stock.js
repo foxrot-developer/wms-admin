@@ -171,7 +171,13 @@ export const Stock = () => {
               </div>
             </div>
           </div>
-          <div className='row mt-4'>
+          <div
+            style={{
+              height: '70vh',
+              overflow: 'auto',
+            }}
+            className='row mt-4'
+          >
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                 <TableHead>
