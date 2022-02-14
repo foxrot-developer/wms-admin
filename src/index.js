@@ -14,6 +14,7 @@ import adminReducer from './store/admin/reducers/adminReducer';
 import productReducer from './store/product/reducers/productReducer';
 import shelfReducer from './store/shelf/reducers/shelfReducer';
 import stockReducer from './store/stock/reducer/stockReducer';
+import warehouseReducer from './store/warehouse/warehouseReducer';
 
 const { persistStore, persistReducer } = require('redux-persist');
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   shelf: shelfReducer,
   stock: stockReducer,
+  warehouse: warehouseReducer,
 });
 
 let devtools, store;

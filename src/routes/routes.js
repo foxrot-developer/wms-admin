@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dashboard } from '../pages/Dashboard/Dashboard';
 import { Products } from '../pages/Admin/Products/Products';
-import { Admins } from '../pages/Admin/Admins';
 import Login from '../pages/Login/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BranchList from '../pages/Branch/BranchList';
@@ -12,6 +11,7 @@ import SendSms from '../pages/SendSms/SendSms';
 import CheckIn from '../pages/CheckIn/CheckIn';
 import { Stock } from '../pages/Stock/Stock';
 import Invoice from '../pages/Invoice/Invoice';
+import { Warehouse } from '../pages/Warehouse/Warehouse';
 
 export const MyRoutes = () => {
   return (
@@ -29,6 +29,7 @@ export const MyRoutes = () => {
           <Route path='send-sms' element={<SendSms />} />
           <Route path='invoice' element={<Invoice />} />
           <Route path='stock' element={<Stock />} />
+          <Route path='warehouse' element={<Warehouse />} />
         </Routes>
       </BrowserRouter>
       ,

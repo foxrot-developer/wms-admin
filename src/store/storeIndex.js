@@ -23,3 +23,11 @@ export {
   getAllStock,
   removeStock,
 } from './stock/action/actionCreator.js';
+
+export {
+  addWarehouse,
+  getAllWarehouse,
+  removeWarehouse,
+  allWarehouseRequest,
+  requestStatus,
+} from './warehouse/actionCreater.js';

@@ -35,6 +35,7 @@ import {
   getAllShelfProducts,
   getAllStock,
   getAllUsers,
+  getAllWarehouse,
 } from '../../../store/storeIndex';
 import {
   Header,
@@ -58,6 +59,7 @@ export const Products = () => {
   const shelfAllDetail = useSelector((state) => state.shelf.shelfAllDetail);
   const barcodeProduct = useSelector((state) => state.product.barcodeProduct);
   const users = useSelector((state) => state.admin.users);
+  const warehouse = useSelector((state) => state.warehouse.warehouse);
   const stock = useSelector((state) => state.stock.stock);
   const [openModal, setOpenModal] = useState(false);
   const [productData, setProductData] = useState({
@@ -69,6 +71,7 @@ export const Products = () => {
     paid: '',
     created_at: formatDateToString(new Date()),
     expiry_date: '',
+    warehouse_id: '',
     barcode: getRandomInt(1000000000, 9999999999),
   });
 
@@ -110,6 +113,7 @@ export const Products = () => {
     dispatch(getAllPallentProducts());
     dispatch(getAllShelfDetail());
     dispatch(getAllUsers());
+    dispatch(getAllWarehouse());
   }, []);
 
   const [search, setSearch] = useState('');
@@ -316,6 +320,27 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
+                    <InputLabel id='warehouse_id'>مستودع</InputLabel>
+                    <Select
+                      fullWidth
+                      labelId='مستودع'
+                      id='warehouse_id'
+                      value={productData.warehouse_id}
+                      onChange={(e) =>
+                        setProductData({
+                          ...productData,
+                          warehouse_id: e.target.value,
+                        })
+                      }
+                    >
+                      {warehouse.map((item) => (
+                        <MenuItem value={item.id}>{item.name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
                     <InputLabel id='storage_type'>نوع التخزين</InputLabel>
                     <Select
                       fullWidth
@@ -480,6 +505,7 @@ export const Products = () => {
                       quantity: '',
                       customer_id: '',
                       paid: '',
+                      warehouse_id: '',
                       created_at: formatDateToString(new Date()),
                       expiry_date: '',
                       barcode: '',
@@ -508,6 +534,27 @@ export const Products = () => {
                     >
                       {stock.map((item) => (
                         <MenuItem value={item.id}>{item.product_name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <InputLabel id='warehouse_id'>مستودع</InputLabel>
+                    <Select
+                      fullWidth
+                      labelId='مستودع'
+                      id='warehouse_id'
+                      value={productData.warehouse_id}
+                      onChange={(e) =>
+                        setProductData({
+                          ...productData,
+                          warehouse_id: e.target.value,
+                        })
+                      }
+                    >
+                      {warehouse.map((item) => (
+                        <MenuItem value={item.id}>{item.name}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>

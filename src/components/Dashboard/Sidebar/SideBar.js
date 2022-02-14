@@ -98,6 +98,14 @@ const SideBar = () => {
                 المخزون
               </li>
             </NavLink>
+            <NavLink to='/warehouse' activeClassName='active'>
+              <li>
+                <span>
+                  <ShoppingBagOutlinedIcon />
+                </span>
+                مستودع
+              </li>
+            </NavLink>
           </ul>
         </SidebarMenu>
         <SidebarBottom>

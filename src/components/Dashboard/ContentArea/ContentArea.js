@@ -51,6 +51,11 @@ export const ContentArea = () => {
               title='فاتورة'
               link='/invoice'
             />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='مستودع'
+              link='/warehouse'
+            />
           </Row>
         </Container>
       </Main>

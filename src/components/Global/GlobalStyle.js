@@ -45,7 +45,7 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  max-width: 500px;
+  max-width: ${(props) => (props.width ? props.width : '500px')};
   max-height: 100vh;
   overflow-y: scroll;
   background-color: #fff;
