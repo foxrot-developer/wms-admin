@@ -12,6 +12,7 @@ import CheckIn from '../pages/CheckIn/CheckIn';
 import { Stock } from '../pages/Stock/Stock';
 import Invoice from '../pages/Invoice/Invoice';
 import { Warehouse } from '../pages/Warehouse/Warehouse';
+import { WithDraw } from '../pages/WithDraw/WithDraw';
 
 export const MyRoutes = () => {
   return (
@@ -30,6 +31,7 @@ export const MyRoutes = () => {
           <Route path='invoice' element={<Invoice />} />
           <Route path='stock' element={<Stock />} />
           <Route path='warehouse' element={<Warehouse />} />
+          <Route path='withdraw' element={<WithDraw />} />
         </Routes>
       </BrowserRouter>
       ,

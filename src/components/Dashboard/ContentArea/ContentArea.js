@@ -56,6 +56,11 @@ export const ContentArea = () => {
               title='مستودع'
               link='/warehouse'
             />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title='طلب سحب'
+              link='/withdraw'
+            />
           </Row>
         </Container>
       </Main>

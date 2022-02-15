@@ -51,6 +51,18 @@ export const Warehouse = () => {
     dispatch(allWarehouseRequest());
   }, []);
 
+  function formatDateAndTimeString(date) {
+    var dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+
+    var MM = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1);
+
+    return `${date.getFullYear()}-${MM}-${dd} ${
+      (date.getHours() < 10 ? '0' : '') + date.getHours()
+    }:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}:${
+      (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
+    }`;
+  }
+
   return (
     <Container>
       <ContentWrap>
@@ -76,8 +88,7 @@ export const Warehouse = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell width={50}>#</TableCell>
-                        <TableCell width={150}>من المستودع</TableCell>
-                        <TableCell width={150}>إلى المستودع</TableCell>
+                        <TableCell width={150}>وقت تاريخ التحويل</TableCell>
                         <TableCell width={150}>اسم</TableCell>
                         <TableCell width={150}>اسم المنتج</TableCell>
                         <TableCell width={150}>كمية</TableCell>
@@ -100,18 +111,9 @@ export const Warehouse = () => {
                               {index + 1}
                             </TableCell>
                             <TableCell>
-                              {
-                                warehouse.find(
-                                  (item) => item.id === product.from_warehouse
-                                )?.name
-                              }
-                            </TableCell>
-                            <TableCell>
-                              {
-                                warehouse.find(
-                                  (item) => item.id === product.to_warehouse
-                                )?.name
-                              }
+                              {formatDateAndTimeString(
+                                new Date(product.transfer_date_time)
+                              )}
                             </TableCell>
                             <TableCell>{product.name}</TableCell>
                             <TableCell>{product.product_name}</TableCell>

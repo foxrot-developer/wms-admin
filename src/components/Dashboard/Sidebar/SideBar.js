@@ -106,6 +106,14 @@ const SideBar = () => {
                 مستودع
               </li>
             </NavLink>
+            <NavLink to='/withdraw' activeClassName='active'>
+              <li>
+                <span>
+                  <ShoppingBagOutlinedIcon />
+                </span>
+                طلب سحب
+              </li>
+            </NavLink>
           </ul>
         </SidebarMenu>
         <SidebarBottom>
