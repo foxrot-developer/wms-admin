@@ -44,7 +44,7 @@ const User = () => {
           >
             <div className='row'>
               <div className='col-6'>
-                <h2>المسؤول (ق)</h2>
+                <h2>{t('UserList')}</h2>
               </div>
             </div>
             <div className='row'>
@@ -53,8 +53,8 @@ const User = () => {
                   <TableHead>
                     <TableCell scope='col'>#</TableCell>
                     <TableCell scope='col'>{t('name')}</TableCell>
-                    <TableCell scope='col'>{t('name')} االمستخدم</TableCell>
-                    <TableCell scope='col'>بريد الالكتروني</TableCell>
+                    <TableCell scope='col'>{t('username')}</TableCell>
+                    <TableCell scope='col'>{t('email')}</TableCell>
                   </TableHead>
                   <TableBody>
                     {users !== undefined &&
