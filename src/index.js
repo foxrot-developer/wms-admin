@@ -10,6 +10,8 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
+import './i18Next';
+
 import adminReducer from './store/admin/reducers/adminReducer';
 import productReducer from './store/product/reducers/productReducer';
 import shelfReducer from './store/shelf/reducers/shelfReducer';

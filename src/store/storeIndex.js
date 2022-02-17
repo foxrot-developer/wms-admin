@@ -32,4 +32,5 @@ export {
   requestStatus,
   withDrawStatus,
   getAllWithDraw,
+  getAllWithDrawHistory,
 } from './warehouse/actionCreater.js';

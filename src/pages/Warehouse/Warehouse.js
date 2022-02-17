@@ -34,8 +34,10 @@ import {
   ModalContainer,
   ModalContent,
 } from '../../components/Global/GlobalStyle';
+import { useTranslation } from 'react-i18next';
 import DoneIcon from '@mui/icons-material/Done';
 export const Warehouse = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const warehouse = useSelector((state) => state.warehouse.warehouse);
   const request = useSelector((state) => state.warehouse.request);
@@ -71,7 +73,7 @@ export const Warehouse = () => {
           <ModalContainer>
             <ModalContent width='80%'>
               <HeaderContainer>
-                <Header>طلب</Header>
+                <Header>{t('warehouse')}</Header>
                 <IconButton onClick={() => setRequestModal(false)}>
                   <CloseIcon />
                 </IconButton>
@@ -88,13 +90,15 @@ export const Warehouse = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell width={50}>#</TableCell>
-                        <TableCell width={150}>وقت تاريخ التحويل</TableCell>
-                        <TableCell width={150}>اسم</TableCell>
-                        <TableCell width={150}>اسم المنتج</TableCell>
-                        <TableCell width={150}>كمية</TableCell>
-                        <TableCell width={150}>السعر الكلي</TableCell>
+                        <TableCell width={150}>
+                          {t('tranferDateTime')}
+                        </TableCell>
+                        <TableCell width={150}>{t('name')}</TableCell>
+                        <TableCell width={150}>{t('productName')}</TableCell>
+                        <TableCell width={150}>{t('quantity')}</TableCell>
+                        <TableCell width={150}>{t('totalprice')}</TableCell>
                         <TableCell align='center' width={50}>
-                          عمل
+                          {t('action')}
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -150,7 +154,7 @@ export const Warehouse = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>مستودع</Header>
+                <Header>{t('warehouse')}</Header>
                 <IconButton onClick={() => setOpenModal(false)}>
                   <CloseIcon />
                 </IconButton>
@@ -159,7 +163,7 @@ export const Warehouse = () => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label='اسم'
+                    label={t('name')}
                     value={data.name}
                     onChange={(e) =>
                       setData({
@@ -174,7 +178,7 @@ export const Warehouse = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -183,7 +187,7 @@ export const Warehouse = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -192,14 +196,14 @@ export const Warehouse = () => {
         <div className='container p-md-5'>
           <div className='row'>
             <div className='col-6'>
-              <h2>مستودع</h2>
+              <h2>{t('warehouse')}</h2>
             </div>
             <div className='col-6 add-btn'>
               <div
                 onClick={() => setOpenModal(true)}
                 className='btn btn-primary'
               >
-                إضافة مستودع
+                {t('addWarehouse')}
               </div>
               <div
                 style={{
@@ -208,7 +212,7 @@ export const Warehouse = () => {
                 onClick={() => setRequestModal(true)}
                 className='btn btn-primary'
               >
-                طلب جديد
+                {t('newRequest')}
               </div>
             </div>
           </div>
@@ -224,9 +228,9 @@ export const Warehouse = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell width={50}>#</TableCell>
-                    <TableCell width={150}>اسم</TableCell>
+                    <TableCell width={150}>{t('name')}</TableCell>
                     <TableCell align='center' width={50}>
-                      عمل
+                      {t('action')}
                     </TableCell>
                   </TableRow>
                 </TableHead>

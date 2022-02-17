@@ -32,13 +32,14 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from 'react-i18next';
 
 const Shelf = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const shelfAll = useSelector((state) => state.shelf.shelfAll);
   const shelfAllDetail = useSelector((state) => state.shelf.shelfAllDetail);
-  const columns = ['عدد', 'الكمية الإجمالية'];
-  const columnsShelfAllDetail = ['عدد'];
+
   useEffect(() => {
     dispatch(getAllShelf());
     dispatch(getAllShelfDetail());
@@ -59,7 +60,7 @@ const Shelf = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>أضف الجرف</Header>
+                <Header>{t('shelfProducts')}</Header>
                 <IconButton onClick={() => setOpenModal(false)}>
                   <CloseIcon />
                 </IconButton>
@@ -67,7 +68,7 @@ const Shelf = () => {
               <TextField
                 fullWidth
                 id='standard-basic'
-                label='عدد الجرف'
+                label={t('name')}
                 onChange={(e) => {
                   setShelfName(e.target.value);
                 }}
@@ -77,7 +78,7 @@ const Shelf = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -90,7 +91,7 @@ const Shelf = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -100,7 +101,7 @@ const Shelf = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>أضف الجرف</Header>
+                <Header>{t('shelfProducts')}</Header>
                 <IconButton
                   onClick={() => {
                     setShelfName('');
@@ -113,7 +114,7 @@ const Shelf = () => {
               <TextField
                 fullWidth
                 id='standard-basic'
-                label='عدد الجرف'
+                label={t('name')}
                 value={shelfName}
                 onChange={(e) => {
                   setShelfName(e.target.value);
@@ -124,7 +125,7 @@ const Shelf = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenUpdateModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -137,7 +138,7 @@ const Shelf = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -152,7 +153,7 @@ const Shelf = () => {
         >
           <div className='row'>
             <div className='col-6'>
-              <h2>رف الدكان (ق)</h2>
+              <h2>{t('shelflist')}</h2>
             </div>
             <div className='col-6 add-btn '>
               <div
@@ -161,23 +162,20 @@ const Shelf = () => {
                 }}
                 className='btn btn-primary'
               >
-                أضف الجرف
+                {t('shelfProducts')}
               </div>
             </div>
           </div>
           <div className='row'>
             <div className='col-6'>
-              <Header>الجرف بالكمية</Header>
+              <Header>{t('allShelf')}</Header>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 450 }} aria-label='simple table'>
                   <TableHead>
                     <TableRow>
                       <TableCell width={50}>#</TableCell>
-                      {columns.map((item) => (
-                        <TableCell width={250} key={item}>
-                          {item}
-                        </TableCell>
-                      ))}
+                      <TableCell width={250}>{t('shelfNumber')}</TableCell>
+                      <TableCell width={250}>{t('quantity')}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -207,13 +205,9 @@ const Shelf = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell width={50}>#</TableCell>
-                      {columnsShelfAllDetail.map((item) => (
-                        <TableCell width={150} key={item}>
-                          {item}
-                        </TableCell>
-                      ))}
+                      <TableCell width={150}>{t('shelfNumber')}</TableCell>
                       <TableCell align='center' width={30}>
-                        طرق
+                        {t('action')}
                       </TableCell>
                     </TableRow>
                   </TableHead>

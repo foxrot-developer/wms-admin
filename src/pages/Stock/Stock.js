@@ -41,7 +41,9 @@ import {
   ModalContainer,
   ModalContent,
 } from '../../components/Global/GlobalStyle';
+import { useTranslation } from 'react-i18next';
 export const Stock = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const stock = useSelector((state) => state.stock.stock);
   const [openModal, setOpenModal] = useState(false);
@@ -69,7 +71,7 @@ export const Stock = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>المخزون</Header>
+                <Header>{t('Inventory')}</Header>
                 <IconButton onClick={() => setOpenModal(false)}>
                   <CloseIcon />
                 </IconButton>
@@ -78,7 +80,7 @@ export const Stock = () => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label='اسم المنتج'
+                    label={t('productName')}
                     value={productData.product_name}
                     onChange={(e) =>
                       setProductData({
@@ -91,7 +93,7 @@ export const Stock = () => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label='الوصف'
+                    label={t('Describe')}
                     value={productData.description}
                     onChange={(e) =>
                       setProductData({
@@ -105,7 +107,7 @@ export const Stock = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='السعر'
+                    label={t('price')}
                     value={productData.price}
                     onChange={(e) =>
                       setProductData({
@@ -119,7 +121,7 @@ export const Stock = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='الكمية'
+                    label={t('quantity')}
                     value={productData.quantity}
                     onChange={(e) =>
                       setProductData({
@@ -135,7 +137,7 @@ export const Stock = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -151,7 +153,7 @@ export const Stock = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -160,14 +162,14 @@ export const Stock = () => {
         <div className='container p-md-5'>
           <div className='row'>
             <div className='col-6'>
-              <h2>المخزون</h2>
+              <h2>{t('Inventory')}</h2>
             </div>
             <div className='col-6 add-btn'>
               <div
                 onClick={() => setOpenModal(true)}
                 className='btn btn-primary'
               >
-                إضافة مخزون
+                {t('add')}
               </div>
             </div>
           </div>
@@ -183,11 +185,11 @@ export const Stock = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell width={50}>#</TableCell>
-                    <TableCell width={150}>اسم المنتج</TableCell>
-                    <TableCell width={150}>وصف</TableCell>
-                    <TableCell width={150}>السعر</TableCell>
-                    <TableCell width={150}>كمية</TableCell>
-                    <TableCell width={50}>عدد</TableCell>
+                    <TableCell width={150}>{t('productName')}</TableCell>
+                    <TableCell width={150}>{t('Describe')}</TableCell>
+                    <TableCell width={150}>{t('price')}</TableCell>
+                    <TableCell width={150}>{t('quantity')}</TableCell>
+                    <TableCell width={50}>{t('shelfQuantity')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

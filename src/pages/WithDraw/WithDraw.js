@@ -18,7 +18,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllWithDraw, withDrawStatus } from '../../store/storeIndex';
 import DoneIcon from '@mui/icons-material/Done';
+import { useTranslation } from 'react-i18next';
+
 export const WithDraw = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const withDraw = useSelector((state) => state.warehouse.withDraw);
 
@@ -44,7 +47,7 @@ export const WithDraw = () => {
         <div className='container p-md-5'>
           <div className='row'>
             <div className='col-6'>
-              <h2>طلب سحب</h2>
+              <h2>{t('Withdrawalrequest')}</h2>
             </div>
           </div>
           <div
@@ -59,13 +62,14 @@ export const WithDraw = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell width={50}>#</TableCell>
-                    <TableCell width={150}>وقت تاريخ السحب</TableCell>
-                    <TableCell width={150}>اسم</TableCell>
-                    <TableCell width={150}>اسم المنتج</TableCell>
-                    <TableCell width={150}>كمية</TableCell>
-                    <TableCell width={150}>السعر الكلي</TableCell>
+                    <TableCell width={150}>{t('withdrawDateTime')}</TableCell>
+                    <TableCell width={150}>{t('name')}</TableCell>
+                    <TableCell width={150}>{t('productName')}</TableCell>
+                    <TableCell width={150}>{t('requested_quantity')}</TableCell>
+                    <TableCell width={150}>{t('quantity')}</TableCell>
+                    <TableCell width={150}>{t('totalprice')}</TableCell>
                     <TableCell align='center' width={50}>
-                      عمل
+                      {t('action')}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -88,6 +92,7 @@ export const WithDraw = () => {
                         </TableCell>
                         <TableCell>{product.name}</TableCell>
                         <TableCell>{product.product_name}</TableCell>
+                        <TableCell>{product.requested_quantity}</TableCell>
                         <TableCell>{product.quantity}</TableCell>
                         <TableCell>{product.total_price}</TableCell>
                         <TableCell width={50}>
@@ -95,14 +100,30 @@ export const WithDraw = () => {
                             <IconButton>
                               <DoneIcon
                                 onClick={() => {
-                                  dispatch(withDrawStatus(product.id, 1));
+                                  dispatch(
+                                    withDrawStatus(product.id, {
+                                      order_id: product.order_id,
+                                      approve: 1,
+                                      requested_quantity:
+                                        product.requested_quantity,
+                                      quantity: product.quantity,
+                                    })
+                                  );
                                 }}
                               />
                             </IconButton>
                             <IconButton>
                               <CloseIcon
                                 onClick={() => {
-                                  dispatch(withDrawStatus(product.id, 0));
+                                  dispatch(
+                                    withDrawStatus(product.id, {
+                                      order_id: product.order_id,
+                                      approve: 0,
+                                      requested_quantity:
+                                        product.requested_quantity,
+                                      quantity: product.quantity,
+                                    })
+                                  );
                                 }}
                               />
                             </IconButton>

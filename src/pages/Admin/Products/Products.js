@@ -50,8 +50,10 @@ import PrintIcon from '@mui/icons-material/Print';
 import BarcodeReader from 'react-barcode-reader';
 import { getProductByBarcode } from '../../../store/product/actions/actionCreators';
 import { GET_PRODUCT_BY_BARCODE } from '../../../store/product/actions/actionTypes';
+import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const floorProducts = useSelector((state) => state.product.floorProducts);
   const pallentProducts = useSelector((state) => state.product.pallentProducts);
@@ -132,7 +134,7 @@ export const Products = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>Search Product</Header>
+                <Header>{t('BarcodeSearch')}</Header>
                 <IconButton
                   onClick={() => {
                     dispatch({
@@ -158,7 +160,7 @@ export const Products = () => {
                 <TextField
                   fullWidth
                   type='number'
-                  label='الكمية'
+                  label={t('barcode')}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -172,88 +174,9 @@ export const Products = () => {
                     dispatch(getProductByBarcode(search));
                   }}
                 >
-                  البحث في الباركود
+                  {t('BarcodeSearch')}
                 </div>
               </ModalSearchContainer>
-              {barcodeProduct !== undefined && barcodeProduct.length > 0 && (
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='اسم المنتج'
-                      value={barcodeProduct[0]?.product_name}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='كمية'
-                      value={barcodeProduct[0]?.quantity}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='اسم'
-                      value={barcodeProduct[0]?.name}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='السعر الكلي'
-                      value={barcodeProduct[0]?.total_price}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='الباركود'
-                      value={barcodeProduct[0]?.barcode}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='دفع'
-                      value={barcodeProduct[0]?.paid === 1 ? 'نقدي' : 'آجل'}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      disabled
-                      type='text'
-                      label='تاريخ الانتهاء'
-                      value={formatDateAndTimeString(
-                        new Date(barcodeProduct[0]?.expiry_date)
-                      )}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ModalBtnContainer>
-                      <div
-                        onClick={() => window.print()}
-                        className='btn btn-primary'
-                      >
-                        مطبعة
-                      </div>
-                    </ModalBtnContainer>
-                  </Grid>
-                </Grid>
-              )}
             </ModalContent>
           </ModalContainer>
         </Modal>
@@ -261,7 +184,7 @@ export const Products = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>الباركود</Header>
+                <Header>{t('barcode')}</Header>
                 <IconButton
                   onClick={() =>
                     setOpenBarCode({
@@ -280,7 +203,7 @@ export const Products = () => {
                     onClick={() => window.print()}
                     className='btn btn-primary'
                   >
-                    مطبعة
+                    {t('print')}
                   </div>
                 </div>
               </ModalBtnContainer>
@@ -291,7 +214,7 @@ export const Products = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>أضف الجرف</Header>
+                <Header>{t('addProduct')}</Header>
                 <IconButton onClick={() => setOpenModal(false)}>
                   <CloseIcon />
                 </IconButton>
@@ -299,11 +222,11 @@ export const Products = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='product_id'>منتج</InputLabel>
+                    <InputLabel id='product_id'>{t('product')}</InputLabel>
                     <Select
                       fullWidth
-                      labelId='منتج'
                       id='product_id'
+                      label={t('product')}
                       value={productData.product_id}
                       onChange={(e) =>
                         setProductData({
@@ -320,11 +243,11 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='warehouse_id'>مستودع</InputLabel>
+                    <InputLabel id='warehouse_id'>{t('warehouse')}</InputLabel>
                     <Select
                       fullWidth
-                      labelId='مستودع'
                       id='warehouse_id'
+                      label={t('warehouse')}
                       value={productData.warehouse_id}
                       onChange={(e) =>
                         setProductData({
@@ -341,11 +264,13 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='storage_type'>نوع التخزين</InputLabel>
+                    <InputLabel id='storage_type'>
+                      {t('storageType')}
+                    </InputLabel>
                     <Select
                       fullWidth
                       id='storage_type'
-                      label='نوع التخزين'
+                      label={t('storageType')}
                       value={productData.storage_type}
                       onChange={(e) =>
                         setProductData({
@@ -354,20 +279,20 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر نوع التخزين</MenuItem>
-                      <MenuItem value='floor-space'>الجرف</MenuItem>
-                      <MenuItem value='pallet'>الحمام</MenuItem>
-                      <MenuItem value='shelf'>المكياج</MenuItem>
+                      <MenuItem value=''>{t('choosestoragetype')}</MenuItem>
+                      <MenuItem value='floor-space'>{t('floorspace')}</MenuItem>
+                      <MenuItem value='pallet'>{t('pallet')}</MenuItem>
+                      <MenuItem value='shelf'>{t('shelf')}</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='shelf_id'>الصندوق</InputLabel>
+                    <InputLabel id='shelf_id'>{t('shelflist')}</InputLabel>
                     <Select
                       fullWidth
                       id='shelf_id'
-                      label='الصندوق'
+                      label={t('shelflist')}
                       value={productData.shelf_id}
                       onChange={(e) =>
                         setProductData({
@@ -376,7 +301,7 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر الصندوق</MenuItem>
+                      <MenuItem value=''>{t('chooseshelf')}</MenuItem>
                       {shelfAllDetail.map((shelf) => (
                         <MenuItem value={shelf.id}>
                           {shelf.shelf_number}
@@ -389,7 +314,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='الكمية'
+                    label={t('quantity')}
                     value={productData.quantity}
                     onChange={(e) =>
                       setProductData({
@@ -401,11 +326,11 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='paid'>الدفع</InputLabel>
+                    <InputLabel id='paid'>{t('paided')}</InputLabel>
                     <Select
                       fullWidth
                       id='paid'
-                      label='الدفع'
+                      label={t('paided')}
                       defaultValue=''
                       value={productData.paid}
                       onChange={(e) =>
@@ -415,9 +340,9 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر نوع الدفع</MenuItem>
-                      <MenuItem value={1}>دفع</MenuItem>
-                      <MenuItem value={0}>غير دفع</MenuItem>
+                      <MenuItem value=''>{t('chooseStatus')}</MenuItem>
+                      <MenuItem value={1}>{t('Pay')}</MenuItem>
+                      <MenuItem value={0}>{t('unPaid')}</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -425,7 +350,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='date'
-                    label='تاريخ الانتهاء'
+                    label={t('ExpiryDate')}
                     value={productData.expiry_date}
                     onChange={(e) =>
                       setProductData({
@@ -458,7 +383,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='الباركود'
+                    label={t('barcode')}
                     disabled
                     value={productData.barcode}
                     onChange={(e) =>
@@ -475,7 +400,7 @@ export const Products = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -484,7 +409,7 @@ export const Products = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -494,7 +419,7 @@ export const Products = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>أضف الجرف</Header>
+                <Header>{t('update')}</Header>
                 <IconButton
                   onClick={() => {
                     setOpenUpdateModal(false);
@@ -519,10 +444,10 @@ export const Products = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='product_id'>منتج</InputLabel>
+                    <InputLabel id='product_id'>{t('product')}</InputLabel>
                     <Select
                       fullWidth
-                      labelId='منتج'
+                      labelId={t('product')}
                       id='product_id'
                       value={productData.product_id}
                       onChange={(e) =>
@@ -540,10 +465,9 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='warehouse_id'>مستودع</InputLabel>
+                    <InputLabel id='warehouse_id'>{t('warehouse')}</InputLabel>
                     <Select
                       fullWidth
-                      labelId='مستودع'
                       id='warehouse_id'
                       value={productData.warehouse_id}
                       onChange={(e) =>
@@ -561,11 +485,13 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='storage_type'>نوع التخزين</InputLabel>
+                    <InputLabel id='storage_type'>
+                      {t('storageType')}
+                    </InputLabel>
                     <Select
                       fullWidth
                       id='storage_type'
-                      label='نوع التخزين'
+                      label={t('storageType')}
                       value={productData.storage_type}
                       onChange={(e) =>
                         setProductData({
@@ -574,20 +500,20 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر نوع التخزين</MenuItem>
-                      <MenuItem value='floor-space'>الجرف</MenuItem>
-                      <MenuItem value='pallet'>الحمام</MenuItem>
-                      <MenuItem value='shelf'>المكياج</MenuItem>
+                      <MenuItem value=''>{t('choosestoragetype')}</MenuItem>
+                      <MenuItem value='floor-space'>{t('floorspace')}</MenuItem>
+                      <MenuItem value='pallet'>{t('pallet')}</MenuItem>
+                      <MenuItem value='shelf'>{t('shelf')}</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='shelf_id'>الصندوق</InputLabel>
+                    <InputLabel id='shelf_id'>{t('shelflist')}</InputLabel>
                     <Select
                       fullWidth
                       id='shelf_id'
-                      label='الصندوق'
+                      label={t('shelflist')}
                       value={productData.shelf_id}
                       onChange={(e) =>
                         setProductData({
@@ -596,7 +522,7 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر الصندوق</MenuItem>
+                      <MenuItem value=''>{t('chooseshelf')}</MenuItem>
                       {shelfAllDetail.map((shelf) => (
                         <MenuItem value={shelf.id}>
                           {shelf.shelf_number}
@@ -609,7 +535,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='الكمية'
+                    label={t('quantity')}
                     value={productData.quantity}
                     onChange={(e) =>
                       setProductData({
@@ -621,11 +547,11 @@ export const Products = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
-                    <InputLabel id='paid'>الدفع</InputLabel>
+                    <InputLabel id='paid'>{t('paided')}</InputLabel>
                     <Select
                       fullWidth
                       id='paid'
-                      label='الدفع'
+                      label={t('paided')}
                       defaultValue=''
                       value={productData.paid}
                       onChange={(e) =>
@@ -635,9 +561,9 @@ export const Products = () => {
                         })
                       }
                     >
-                      <MenuItem value=''>اختر نوع الدفع</MenuItem>
-                      <MenuItem value={1}>دفع</MenuItem>
-                      <MenuItem value={0}>غير دفع</MenuItem>
+                      <MenuItem value=''>{t('chooseStatus')}</MenuItem>
+                      <MenuItem value={1}>{t('Pay')}</MenuItem>
+                      <MenuItem value={0}>{t('unPaid')}</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -645,7 +571,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='date'
-                    label='تاريخ الانتهاء'
+                    label={t('ExpiryDate')}
                     value={productData.expiry_date}
                     onChange={(e) =>
                       setProductData({
@@ -678,7 +604,7 @@ export const Products = () => {
                   <TextField
                     fullWidth
                     type='number'
-                    label='الباركود'
+                    label={t('barcode')}
                     disabled
                     value={productData.barcode}
                     onChange={(e) =>
@@ -695,7 +621,7 @@ export const Products = () => {
                   className='btn btn-danger'
                   onClick={() => setOpenUpdateModal(false)}
                 >
-                  إلغاء
+                  {t('cancle')}
                 </button>
                 <button
                   onClick={() => {
@@ -704,7 +630,7 @@ export const Products = () => {
                   }}
                   className='btn btn-success'
                 >
-                  يضيف
+                  {t('add')}
                 </button>
               </ModalBtnContainer>
             </ModalContent>
@@ -713,7 +639,7 @@ export const Products = () => {
         <InnerConatiner>
           <div className='row'>
             <div className='col-6'>
-              <h2>منتجات</h2>
+              <h2>{t('products')}</h2>
             </div>
             <div
               className='col-6'
@@ -726,20 +652,20 @@ export const Products = () => {
                 onClick={() => setOpenModal(true)}
                 className='btn btn-primary'
               >
-                أضف منتج
+                {t('addProduct')}
               </div>
               <div
                 onClick={() => setOpenSearchModal(true)}
                 className='btn btn-primary'
                 style={{ marginLeft: '1em' }}
               >
-                البحث في الباركود
+                {t('BarcodeSearch')}
               </div>
             </div>
           </div>
           <div className='row'>
             <div className='col'>
-              <Header>منتجات الرف</Header>
+              <Header>{t('shelfProducts')}</Header>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
@@ -747,17 +673,19 @@ export const Products = () => {
                       <TableCell align='center' width={50}>
                         #
                       </TableCell>
-                      <TableCell width={150}>اسم المنتج</TableCell>
-                      <TableCell width={150}>اسم</TableCell>
-                      <TableCell width={150}>وصف</TableCell>
-                      <TableCell width={150}>السعر</TableCell>
-                      <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>السعر الكلي</TableCell>
-                      <TableCell width={150}>دفع</TableCell>
-                      <TableCell width={150}>الباركود</TableCell>
-                      <TableCell width={150}>الجرف</TableCell>
+                      <TableCell width={150}>
+                        {t('product')} {t('name')}
+                      </TableCell>
+                      <TableCell width={150}>{t('name')}</TableCell>
+                      <TableCell width={150}>{t('Describe')}</TableCell>
+                      <TableCell width={150}>{t('price')}</TableCell>
+                      <TableCell width={150}>{t('totalQuantity')}</TableCell>
+                      <TableCell width={150}>{t('totalprice')}</TableCell>
+                      <TableCell width={150}>{t('Pay')}</TableCell>
+                      <TableCell width={150}>{t('barcode')}</TableCell>
+                      <TableCell width={150}>{t('shelfProducts')}</TableCell>
                       <TableCell align='center' width={50}>
-                        عدد
+                        {t('action')}
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -821,7 +749,7 @@ export const Products = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Header>منتجات الأرضيات</Header>
+              <Header>{t('flooringProducts')}</Header>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
@@ -829,17 +757,19 @@ export const Products = () => {
                       <TableCell align='center' width={50}>
                         #
                       </TableCell>
-                      <TableCell width={150}>اسم المنتج</TableCell>
-                      <TableCell width={150}>اسم</TableCell>
-                      <TableCell width={150}>قوي</TableCell>
-                      <TableCell width={150}>وصف</TableCell>
-                      <TableCell width={150}>السعر</TableCell>
-                      <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>السعر الكلي</TableCell>
-                      <TableCell width={150}>دفع</TableCell>
-                      <TableCell width={150}>الباركود</TableCell>
+                      <TableCell width={150}>
+                        {t('product')} {t('name')}
+                      </TableCell>
+                      <TableCell width={150}>{t('name')}</TableCell>
+                      <TableCell width={150}>{t('Describe')}</TableCell>
+                      <TableCell width={150}>{t('price')}</TableCell>
+                      <TableCell width={150}>{t('totalQuantity')}</TableCell>
+                      <TableCell width={150}>{t('totalprice')}</TableCell>
+                      <TableCell width={150}>{t('Pay')}</TableCell>
+                      <TableCell width={150}>{t('barcode')}</TableCell>
+                      <TableCell width={150}>{t('shelfProducts')}</TableCell>
                       <TableCell align='center' width={50}>
-                        عدد
+                        {t('action')}
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -903,7 +833,7 @@ export const Products = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Header>منتجات البليت</Header>
+              <Header>{t('palletProducts')}</Header>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                   <TableHead>
@@ -911,17 +841,19 @@ export const Products = () => {
                       <TableCell align='center' width={50}>
                         #
                       </TableCell>
-                      <TableCell width={150}>اسم المنتج</TableCell>
-                      <TableCell width={150}>اسم</TableCell>
-                      <TableCell width={150}>قوي</TableCell>
-                      <TableCell width={150}>وصف</TableCell>
-                      <TableCell width={150}>السعر</TableCell>
-                      <TableCell width={150}>كمية</TableCell>
-                      <TableCell width={150}>السعر الكلي</TableCell>
-                      <TableCell width={150}>دفع</TableCell>
-                      <TableCell width={150}>الباركود</TableCell>
+                      <TableCell width={150}>
+                        {t('product')} {t('name')}
+                      </TableCell>
+                      <TableCell width={150}>{t('name')}</TableCell>
+                      <TableCell width={150}>{t('storageType')}</TableCell>
+                      <TableCell width={150}>{t('price')}</TableCell>
+                      <TableCell width={150}>{t('totalQuantity')}</TableCell>
+                      <TableCell width={150}>{t('totalprice')}</TableCell>
+                      <TableCell width={150}>{t('Pay')}</TableCell>
+                      <TableCell width={150}>{t('barcode')}</TableCell>
+                      <TableCell width={150}>{t('shelfProducts')}</TableCell>
                       <TableCell align='center' width={50}>
-                        عدد
+                        {t('action')}
                       </TableCell>
                     </TableRow>
                   </TableHead>

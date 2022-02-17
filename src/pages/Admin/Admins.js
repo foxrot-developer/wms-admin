@@ -28,7 +28,7 @@ export const Admins = () => {
                   <thead>
                     <tr>
                       <th scope='col'>#</th>
-                      <th scope='col'>اسم</th>
+                      <th scope='col'>{t('name')}</th>
                       <th scope='col'>بريد الالكتروني</th>
                     </tr>
                   </thead>

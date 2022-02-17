@@ -18,8 +18,10 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUserCheckIn } from '../../store/admin/actions/actionCreators';
+import { useTranslation } from 'react-i18next';
 
 const CheckIn = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const checkin = useSelector((state) => state.admin.checkin);
   const admin = useSelector((state) => state.admin.admin);
@@ -45,7 +47,7 @@ const CheckIn = () => {
         <div className='container p-md-5 '>
           <div className='row'>
             <div className='col-6'>
-              <h2>سجل المنتج</h2>
+              <h2>{t('ProductsExpiry')}</h2>
             </div>
           </div>
           <div
@@ -59,15 +61,15 @@ const CheckIn = () => {
               <Table sx={{ minWidth: 450 }} aria-label='simple table'>
                 <TableHead>
                   <TableCell scope='col'>#</TableCell>
-                  <TableCell scope='col'>اسم المنتج</TableCell>
-                  <TableCell scope='col'>كمية</TableCell>
-                  <TableCell scope='col'>اسم</TableCell>
-                  <TableCell scope='col'>السعر الكلي</TableCell>
-                  <TableCell scope='col'>الباركود</TableCell>
-                  <TableCell scope='col'>دفع</TableCell>
-                  <TableCell scope='col'>تاريخ الانتهاء</TableCell>
-                  <TableCell scope='col'>وقت الدجاج</TableCell>
-                  <TableCell scope='col'>تحقق من الوقت</TableCell>
+                  <TableCell scope='col'>{t('productName')}</TableCell>
+                  <TableCell scope='col'>{t('quantity')}</TableCell>
+                  <TableCell scope='col'>{t('name')}</TableCell>
+                  <TableCell scope='col'>{t('totalprice')}</TableCell>
+                  <TableCell scope='col'>{t('barcode')}</TableCell>
+                  <TableCell scope='col'>{t('Pay')}</TableCell>
+                  <TableCell scope='col'>{t('ExpiryDate')}</TableCell>
+                  <TableCell scope='col'>{t('checkedInTime')}</TableCell>
+                  <TableCell scope='col'>{t('checkOutTime')}</TableCell>
                 </TableHead>
                 <TableBody>
                   {checkin !== undefined &&

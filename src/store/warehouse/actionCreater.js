@@ -3,6 +3,7 @@ import toast from '../../shared/toast/toast';
 export const GET_ALL_WAREHOUSE = 'GET_ALL_WAREHOUSE';
 export const GET_ALL_REQUEST = 'GET_ALL_REQUEST';
 export const GET_ALL_WITHDRAW = 'GET_ALL_WITHDRAW';
+export const GET_ALL_WITHDRAW_HISTORY = 'GET_ALL_WITHDRAW_HISTORY';
 
 export const getAllWarehouse = () => (dispatch) => {
   Axios.get('warehouse/all-warehouses')
@@ -77,14 +78,25 @@ export const getAllWithDraw = () => (dispatch) => {
 };
 
 export const withDrawStatus = (id, status) => (dispatch) => {
-  Axios.patch(`product/handle-withdraw/${id}`, {
-    approve: status,
-  })
+  Axios.patch(`product/handle-withdraw/${id}`, status)
     .then(() => {
       toast.success('Withdraw Updated Successfully');
       dispatch(getAllWithDraw());
     })
     .catch((error) => {
       toast.error(error.response.data.message);
+    });
+};
+
+export const getAllWithDrawHistory = () => (dispatch) => {
+  Axios.get('product/approved-requests')
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_WITHDRAW_HISTORY,
+        payload: res.data.response,
+      });
+    })
+    .catch((err) => {
+      toast.error(err.response.data.message);
     });
 };

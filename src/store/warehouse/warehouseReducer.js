@@ -2,12 +2,14 @@ import {
   GET_ALL_REQUEST,
   GET_ALL_WAREHOUSE,
   GET_ALL_WITHDRAW,
+  GET_ALL_WITHDRAW_HISTORY,
 } from './actionCreater';
 
 const initialState = {
   warehouse: [],
   request: [],
   withDraw: [],
+  withDrawHistory: [],
 };
 
 const warehouseReducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const warehouseReducer = (state = initialState, action) => {
       return {
         ...state,
         withDraw: action.payload,
+      };
+    case GET_ALL_WITHDRAW_HISTORY:
+      return {
+        ...state,
+        withDrawHistory: action.payload,
       };
     default:
       return state;

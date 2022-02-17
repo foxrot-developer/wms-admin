@@ -50,8 +50,8 @@ const User = () => {
                 <Table sx={{ minWidth: 450 }} aria-label='simple table'>
                   <TableHead>
                     <TableCell scope='col'>#</TableCell>
-                    <TableCell scope='col'>اسم</TableCell>
-                    <TableCell scope='col'>اسم االمستخدم</TableCell>
+                    <TableCell scope='col'>{t('name')}</TableCell>
+                    <TableCell scope='col'>{t('name')} االمستخدم</TableCell>
                     <TableCell scope='col'>بريد الالكتروني</TableCell>
                   </TableHead>
                   <TableBody>

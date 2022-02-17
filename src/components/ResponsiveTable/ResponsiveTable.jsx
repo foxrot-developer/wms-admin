@@ -20,7 +20,7 @@ const ResponsiveTable = ({ data, column }) => {
               </TableCell>
             ))}
             <TableCell align='center' width={100}>
-              طرق
+              {t('action')}
             </TableCell>
           </TableRow>
         </TableHead>

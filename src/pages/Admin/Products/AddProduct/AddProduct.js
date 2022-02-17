@@ -8,7 +8,7 @@ export const AddProduct = () => {
   const AddProductSchema = Yup.object().shape({
     name: Yup.string().required('اسم المنتج مطلوب.'),
     price: Yup.string().required('السعر مطلوب.'),
-    type: Yup.string().required('نوع التخزين مطلوب.'),
+    type: Yup.string().required('{t('storageType')} مطلوب.'),
     desc: Yup.string().required('الوصف مطلوب.'),
   });
 

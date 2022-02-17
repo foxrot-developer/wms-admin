@@ -11,8 +11,10 @@ import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import userImg from '../../../assets/images/user.jpeg';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const SideBar = () => {
+  const { t } = useTranslation();
   const admin = useSelector((state) => state.admin.admin);
   return (
     <>
@@ -20,7 +22,7 @@ const SideBar = () => {
         <SidebarTop>
           <div className='logo'>
             <NavLink to='/dashboard' className='text-decoration-none'>
-              <h4>متجري</h4>
+              <h4>{t('dashboard')}</h4>
             </NavLink>
           </div>
         </SidebarTop>
@@ -31,7 +33,7 @@ const SideBar = () => {
                 <span>
                   <WidgetsOutlinedIcon />
                 </span>
-                لوحة القيادة
+                {t('dashboard')}
               </li>
             </NavLink>
             <NavLink to='/products' activeClassName='active'>
@@ -39,7 +41,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                قائمة المنتجات
+                {t('ProductsList')}
               </li>
             </NavLink>
             <NavLink to='/user' activeClassName='active'>
@@ -47,7 +49,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                قائمة المستخدم
+                {t('UsersList')}
               </li>
             </NavLink>
             <NavLink to='/shelf' activeClassName='active'>
@@ -55,7 +57,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                قائمة الرف
+                {t('shelflist')}
               </li>
             </NavLink>
             <NavLink to='/products-report' activeClassName='active'>
@@ -63,7 +65,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                تقرير المنتج
+                {t('ProductReport')}
               </li>
             </NavLink>
             <NavLink to='/products-expiry' activeClassName='active'>
@@ -71,7 +73,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                انتهاء صلاحية المنتجات
+                {t('ProductExpiry')}
               </li>
             </NavLink>
             <NavLink to='/product-log' activeClassName='active'>
@@ -79,7 +81,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                سجل المنتج
+                {t('ProductRegister')}
               </li>
             </NavLink>
             <NavLink to='/invoice' activeClassName='active'>
@@ -87,7 +89,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                فاتورة
+                {t('invoice')}
               </li>
             </NavLink>
             <NavLink to='/stock' activeClassName='active'>
@@ -95,7 +97,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                المخزون
+                {t('Inventory')}
               </li>
             </NavLink>
             <NavLink to='/warehouse' activeClassName='active'>
@@ -103,7 +105,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                مستودع
+                {t('warehouse')}
               </li>
             </NavLink>
             <NavLink to='/withdraw' activeClassName='active'>
@@ -111,7 +113,15 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                طلب سحب
+                {t('Withdrawalrequest')}
+              </li>
+            </NavLink>
+            <NavLink to='/history' activeClassName='active'>
+              <li>
+                <span>
+                  <ShoppingBagOutlinedIcon />
+                </span>
+                {t('history')}
               </li>
             </NavLink>
           </ul>

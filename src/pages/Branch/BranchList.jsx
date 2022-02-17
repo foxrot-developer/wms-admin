@@ -16,13 +16,14 @@ import {
   TableRow,
 } from '@mui/material';
 import { getProductNearToExpire } from '../../store/product/actions/actionCreators';
+import { useTranslation } from 'react-i18next';
 
 const BranchList = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const productNearToExpire = useSelector(
     (state) => state.product.productNearToExpire
   );
-  console.log(productNearToExpire);
   useEffect(() => {
     dispatch(getProductNearToExpire());
   }, []);
@@ -34,7 +35,7 @@ const BranchList = () => {
           <div className='container p-md-5 '>
             <div className='row'>
               <div className='col-6'>
-                <h2>انتهاء صلاحية المنتجات</h2>
+                <h2>{t('ProductsExpiry')}</h2>
               </div>
             </div>
 
@@ -45,10 +46,10 @@ const BranchList = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell width={50}>#</TableCell>
-                        <TableCell width={50}>اسم المنتج</TableCell>
-                        <TableCell width={50}>تأسست في</TableCell>
-                        <TableCell width={50}>تاريخ الانتهاء</TableCell>
-                        <TableCell width={50}>الأيام المتبقية</TableCell>
+                        <TableCell width={50}>{t('productName')}</TableCell>
+                        <TableCell width={50}>{t('createdAt')}</TableCell>
+                        <TableCell width={50}>{t('ExpiryDate')}</TableCell>
+                        <TableCell width={50}>{t('remainingDays')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

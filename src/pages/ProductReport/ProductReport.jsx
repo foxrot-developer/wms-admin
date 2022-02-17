@@ -26,8 +26,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../store/admin/actions/actionCreators';
 import { getProductReport } from '../../store/product/actions/actionCreators';
+import { useTranslation } from 'react-i18next';
 
 const ProductReport = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.admin.users);
   const productReport = useSelector((state) => state.product.productReport);
@@ -74,7 +76,7 @@ const ProductReport = () => {
           <div className='container p-md-5 '>
             <div className='row'>
               <div className='col-6'>
-                <h2>تقرير المنتج</h2>
+                <h2>{t('ProductReport')}</h2>
               </div>
               <div className='col-6 add-btn '>
                 <div
@@ -92,10 +94,12 @@ const ProductReport = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <InputLabel htmlFor='customer_id'>العميل</InputLabel>
+                      <InputLabel htmlFor='customer_id'>
+                        {t('customerName')}
+                      </InputLabel>
                       <Select
                         id='storage_type'
-                        label='نوع التخزين'
+                        label={t('customerName')}
                         value={searchData.customer_id}
                         onChange={(e) =>
                           setSearchData({
@@ -104,9 +108,7 @@ const ProductReport = () => {
                           })
                         }
                       >
-                        <MenuItem value=''>
-                          <em>لا أحد</em>
-                        </MenuItem>
+                        <MenuItem value=''>{t('chooseCustomer')}</MenuItem>
                         {user.map((item) => (
                           <MenuItem value={item.id}>{item.name}</MenuItem>
                         ))}
@@ -118,7 +120,7 @@ const ProductReport = () => {
                       fullWidth
                       id='from'
                       type='date'
-                      label='من'
+                      label={t('from')}
                       value={searchData.from}
                       onChange={(e) =>
                         setSearchData({
@@ -133,7 +135,7 @@ const ProductReport = () => {
                       fullWidth
                       id='to'
                       type='date'
-                      label='الى'
+                      label={t('to')}
                       value={searchData.to}
                       onChange={(e) =>
                         setSearchData({
@@ -150,7 +152,7 @@ const ProductReport = () => {
                       }}
                       className='btn btn-primary'
                     >
-                      بحث
+                      {t('search')}
                     </div>
                   </Grid>
                 </Grid>
@@ -162,14 +164,14 @@ const ProductReport = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell width={50}>#</TableCell>
-                      <TableCell width={50}>اسم المنتج</TableCell>
-                      <TableCell width={50}>قوي</TableCell>
-                      <TableCell width={50}>يصف</TableCell>
-                      <TableCell width={50}>السعر</TableCell>
-                      <TableCell width={50}>مقدار</TableCell>
-                      <TableCell width={50}>الزبون</TableCell>
-                      <TableCell width={50}>السعر الكلي</TableCell>
-                      <TableCell width={50}>يدفع</TableCell>
+                      <TableCell width={50}>{t('productName')}</TableCell>
+                      <TableCell width={50}>{t('storageType')}</TableCell>
+                      <TableCell width={50}>{t('Describe')}</TableCell>
+                      <TableCell width={50}>{t('price')}</TableCell>
+                      <TableCell width={50}>{t('quantity')}</TableCell>
+                      <TableCell width={50}>{t('name')}</TableCell>
+                      <TableCell width={50}>{t('totalprice')}</TableCell>
+                      <TableCell width={50}>{t('Pay')}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>

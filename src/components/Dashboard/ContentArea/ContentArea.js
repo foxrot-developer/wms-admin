@@ -2,10 +2,10 @@ import React from 'react';
 import { Container, Row, Main } from './ContentAreaStyled';
 import { StatsCard } from './StatsCard/StatsCard';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBagOutlined';
-import StoreIcon from '@mui/icons-material/StorefrontOutlined';
-import AdminIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import { useTranslation } from 'react-i18next';
 
 export const ContentArea = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Main>
@@ -13,53 +13,58 @@ export const ContentArea = () => {
           <Row className='row d-flex justify-content-center w-100 m-0'>
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='قائمة المنتجات'
+              title={t('ProductsList')}
               link='/products'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='قائمة المستخدم'
+              title={t('UserList')}
               link='/user'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='قائمة الرف'
+              title={t('shelflist')}
               link='/shelf'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='تقرير المنتج'
+              title={t('ProductReport')}
               link='/products-report'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='انتهاء صلاحية المنتجات'
+              title={t('ProductsExpiry')}
               link='/products-expiry'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='سجل المنتج'
+              title={t('ProductRegister')}
               link='/product-log'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='المخزون'
+              title={t('Inventory')}
               link='/stock'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='فاتورة'
+              title={t('invoice')}
               link='/invoice'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='مستودع'
+              title={t('warehouse')}
               link='/warehouse'
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title='طلب سحب'
+              title={t('Withdrawalrequest')}
               link='/withdraw'
+            />
+            <StatsCard
+              icon={<ShoppingBagIcon />}
+              title={t('history')}
+              link='/history'
             />
           </Row>
         </Container>

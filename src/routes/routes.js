@@ -13,6 +13,7 @@ import { Stock } from '../pages/Stock/Stock';
 import Invoice from '../pages/Invoice/Invoice';
 import { Warehouse } from '../pages/Warehouse/Warehouse';
 import { WithDraw } from '../pages/WithDraw/WithDraw';
+import History from '../pages/History/History';
 
 export const MyRoutes = () => {
   return (
@@ -32,6 +33,7 @@ export const MyRoutes = () => {
           <Route path='stock' element={<Stock />} />
           <Route path='warehouse' element={<Warehouse />} />
           <Route path='withdraw' element={<WithDraw />} />
+          <Route path='history' element={<History />} />
         </Routes>
       </BrowserRouter>
       ,
