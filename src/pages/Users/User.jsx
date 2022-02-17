@@ -22,8 +22,10 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../store/admin/actions/actionCreators';
+import { useTranslation } from 'react-i18next';
 
 const User = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.admin.users);
   useEffect(() => {
