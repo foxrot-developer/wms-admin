@@ -67,5 +67,6 @@
   "newRequest": "طلب جديد",
   "withdrawDateTime": "تاريخ السحب",
   "history": "التاريخ",
-  "requested_quantity": "الكمية المطلوبة"
+  "requested_quantity": "الكمية المطلوبة",
+  "Language": "اللغة"
 }

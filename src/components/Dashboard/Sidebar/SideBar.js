@@ -12,6 +12,8 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import userImg from '../../../assets/images/user.jpeg';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import i18next from 'i18next';
 
 const SideBar = () => {
   const { t } = useTranslation();
@@ -20,11 +22,18 @@ const SideBar = () => {
     <>
       <AdSidebar>
         <SidebarTop>
-          <div className='logo'>
-            <NavLink to='/dashboard' className='text-decoration-none'>
-              <h4>{t('dashboard')}</h4>
-            </NavLink>
-          </div>
+          <FormControl fullWidth className='form-control'>
+            <InputLabel htmlFor='language'>{t('Language')}</InputLabel>
+            <Select
+              id='language'
+              onChange={(e) => {
+                i18next.changeLanguage(e.target.value);
+              }}
+            >
+              <MenuItem value='en'>English</MenuItem>
+              <MenuItem value='ar'>Arabic</MenuItem>
+            </Select>
+          </FormControl>
         </SidebarTop>
         <SidebarMenu>
           <ul>
