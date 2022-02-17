@@ -58,7 +58,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                {t('UsersList')}
+                {t('UserList')}
               </li>
             </NavLink>
             <NavLink to='/shelf' activeClassName='active'>
@@ -82,7 +82,7 @@ const SideBar = () => {
                 <span>
                   <ShoppingBagOutlinedIcon />
                 </span>
-                {t('ProductExpiry')}
+                {t('ProductsExpiry')}
               </li>
             </NavLink>
             <NavLink to='/product-log' activeClassName='active'>
@@ -109,14 +109,6 @@ const SideBar = () => {
                 {t('Inventory')}
               </li>
             </NavLink>
-            <NavLink to='/warehouse' activeClassName='active'>
-              <li>
-                <span>
-                  <ShoppingBagOutlinedIcon />
-                </span>
-                {t('warehouse')}
-              </li>
-            </NavLink>
             <NavLink to='/withdraw' activeClassName='active'>
               <li>
                 <span>
@@ -135,23 +127,6 @@ const SideBar = () => {
             </NavLink>
           </ul>
         </SidebarMenu>
-        <SidebarBottom>
-          <Avatar>
-            <NavLink to='/'>
-              <div className='d-flex align-items-center'>
-                <img
-                  src={userImg}
-                  alt='Avatar'
-                  style={{
-                    width: '40px',
-                    height: '40px',
-                  }}
-                />
-                <span>{admin.username}</span>
-              </div>
-            </NavLink>
-          </Avatar>
-        </SidebarBottom>
       </AdSidebar>
     </>
   );

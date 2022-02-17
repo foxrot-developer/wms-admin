@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import SideBar from '../../components/Dashboard/Sidebar/SideBar';
 import { getAllWithDrawHistory } from '../../store/storeIndex';
 import { Container, ContentWrap } from '../WithDraw/WithDrawStyled';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const History = () => {
   const { t } = useTranslation();
@@ -34,6 +36,18 @@ const History = () => {
       (date.getSeconds() < 10 ? '0' : '') + date.getSeconds()
     }`;
   }
+
+  const doc = new jsPDF();
+  doc.autoTable({
+    head: [['Product Name', 'Customer Name', 'quantity', 'Withdraw Date Time']],
+    body: withDraw.map((report) => [
+      report.product_name,
+      report.name,
+      report.requested_quantity,
+      formatDateAndTimeString(new Date(report.withdraw_date_time)),
+    ]),
+  });
+
   return (
     <Container>
       <ContentWrap>
@@ -41,7 +55,17 @@ const History = () => {
         <div className='container p-md-5'>
           <div className='row'>
             <div className='col-6'>
-              <h2>{t('Withdrawalrequest')}</h2>
+              <h2>{t('history')}</h2>
+            </div>
+            <div className='col-6 add-btn '>
+              <div
+                onClick={() => {
+                  doc.save('table.pdf');
+                }}
+                className='btn btn-primary'
+              >
+                PDF
+              </div>
             </div>
           </div>
           <div

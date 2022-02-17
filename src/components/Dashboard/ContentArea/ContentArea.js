@@ -53,11 +53,6 @@ export const ContentArea = () => {
             />
             <StatsCard
               icon={<ShoppingBagIcon />}
-              title={t('warehouse')}
-              link='/warehouse'
-            />
-            <StatsCard
-              icon={<ShoppingBagIcon />}
               title={t('Withdrawalrequest')}
               link='/withdraw'
             />

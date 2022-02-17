@@ -31,7 +31,7 @@ export const MyRoutes = () => {
           <Route path='send-sms' element={<SendSms />} />
           <Route path='invoice' element={<Invoice />} />
           <Route path='stock' element={<Stock />} />
-          <Route path='warehouse' element={<Warehouse />} />
+          {/* <Route path='warehouse' element={<Warehouse />} /> */}
           <Route path='withdraw' element={<WithDraw />} />
           <Route path='history' element={<History />} />
         </Routes>
