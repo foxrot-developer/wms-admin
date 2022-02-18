@@ -64,6 +64,7 @@ export const WithDraw = () => {
                     <TableCell width={50}>#</TableCell>
                     <TableCell width={150}>{t('withdrawDateTime')}</TableCell>
                     <TableCell width={150}>{t('name')}</TableCell>
+                    <TableCell width={150}>{t('signature')}</TableCell>
                     <TableCell width={150}>{t('productName')}</TableCell>
                     <TableCell width={150}>{t('requested_quantity')}</TableCell>
                     <TableCell width={150}>{t('quantity')}</TableCell>
@@ -91,6 +92,13 @@ export const WithDraw = () => {
                           )}
                         </TableCell>
                         <TableCell>{product.name}</TableCell>
+                        <TableCell>
+                          <img
+                            src={product.signature}
+                            alt='signature'
+                            style={{ width: '100px' }}
+                          />
+                        </TableCell>
                         <TableCell>{product.product_name}</TableCell>
                         <TableCell>{product.requested_quantity}</TableCell>
                         <TableCell>{product.quantity}</TableCell>
