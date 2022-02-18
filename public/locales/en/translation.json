@@ -67,5 +67,6 @@
   "withdrawDateTime": "Withdraw Date Time",
   "history": "History",
   "requested_quantity": "Requested Quantity",
-  "Language": "Language"
+  "Language": "Language",
+  "signature": "Signature"
 }

@@ -68,5 +68,6 @@
   "withdrawDateTime": "تاريخ السحب",
   "history": "التاريخ",
   "requested_quantity": "الكمية المطلوبة",
-  "Language": "اللغة"
+  "Language": "اللغة",
+  "signature": "التوقيع"
 }

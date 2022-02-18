@@ -15,6 +15,7 @@ import SideBar from '../../components/Dashboard/Sidebar/SideBar';
 import { getAllWithDrawHistory } from '../../store/storeIndex';
 import { Container, ContentWrap } from '../WithDraw/WithDrawStyled';
 import jsPDF from 'jspdf';
+import PrintIcon from '@mui/icons-material/Print';
 import 'jspdf-autotable';
 
 const History = () => {
@@ -60,6 +61,25 @@ const History = () => {
             <div className='col-6 add-btn '>
               <div
                 onClick={() => {
+                  const doc = new jsPDF();
+                  doc.autoTable({
+                    head: [
+                      [
+                        'Product Name',
+                        'Customer Name',
+                        'quantity',
+                        'Withdraw Date Time',
+                      ],
+                    ],
+                    body: withDraw.map((report) => [
+                      report.product_name,
+                      report.name,
+                      report.requested_quantity,
+                      formatDateAndTimeString(
+                        new Date(report.withdraw_date_time)
+                      ),
+                    ]),
+                  });
                   doc.save('table.pdf');
                 }}
                 className='btn btn-primary'
@@ -81,9 +101,11 @@ const History = () => {
                   <TableRow>
                     <TableCell width={50}>#</TableCell>
                     <TableCell width={150}>{t('productName')}</TableCell>
+                    <TableCell width={150}>{t('signature')}</TableCell>
                     <TableCell width={150}>{t('name')}</TableCell>
                     <TableCell width={150}>{t('quantity')}</TableCell>
                     <TableCell width={150}>{t('withdrawDateTime')}</TableCell>
+                    <TableCell width={50}>{t('action')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -99,12 +121,49 @@ const History = () => {
                           {index + 1}
                         </TableCell>
                         <TableCell>{product.product_name}</TableCell>
+                        <TableCell>
+                          <img
+                            src={product.signature}
+                            alt='signature'
+                            style={{ width: '100px' }}
+                          />
+                        </TableCell>
                         <TableCell>{product.name}</TableCell>
                         <TableCell>{product.requested_quantity}</TableCell>
                         <TableCell>
                           {formatDateAndTimeString(
                             new Date(product.withdraw_date_time)
                           )}
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            onClick={() => {
+                              const doc = new jsPDF();
+                              doc.autoTable({
+                                head: [
+                                  [
+                                    'Product Name',
+                                    'Customer Name',
+                                    'quantity',
+                                    'Withdraw Date Time',
+                                  ],
+                                ],
+                                body: [
+                                  [
+                                    product.product_name,
+                                    product.name,
+                                    product.requested_quantity,
+                                    formatDateAndTimeString(
+                                      new Date(product.withdraw_date_time)
+                                    ),
+                                  ],
+                                ],
+                              });
+                              doc.save('table.pdf');
+                            }}
+                          >
+                            <PrintIcon />
+                          </IconButton>
                         </TableCell>
                       </TableRow>
                     ))}
