@@ -27,6 +27,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../store/admin/actions/actionCreators';
 import { getProductReport } from '../../store/product/actions/actionCreators';
 import { useTranslation } from 'react-i18next';
+import logo from '../../assets/Saudi-logo.png';
 
 const ProductReport = () => {
   const { t } = useTranslation();
@@ -57,6 +58,10 @@ const ProductReport = () => {
       report.total_price,
       report.paid === 1 ? 'paid' : 'not paid',
     ]),
+    margin: { top: 25 },
+    didDrawPage: (data) => {
+      doc.addImage(logo, 'JPEG', 10, 0, 50, 25);
+    },
   });
 
   const [searchData, setSearchData] = useState({
