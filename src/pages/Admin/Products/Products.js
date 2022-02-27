@@ -59,7 +59,6 @@ export const Products = () => {
   const pallentProducts = useSelector((state) => state.product.pallentProducts);
   const shelfProducts = useSelector((state) => state.product.shelfProducts);
   const shelfAllDetail = useSelector((state) => state.shelf.shelfAllDetail);
-  const barcodeProduct = useSelector((state) => state.product.barcodeProduct);
   const users = useSelector((state) => state.admin.users);
   const warehouse = useSelector((state) => state.warehouse.warehouse);
   const stock = useSelector((state) => state.stock.stock);
@@ -134,7 +133,7 @@ export const Products = () => {
           <ModalContainer>
             <ModalContent>
               <HeaderContainer>
-                <Header>{t('BarcodeSearch')}</Header>
+                <Header>{t('checkOut')}</Header>
                 <IconButton
                   onClick={() => {
                     dispatch({
@@ -154,7 +153,6 @@ export const Products = () => {
                   onError={(err) => console.log(err)}
                   onScan={(data) => {
                     setSearch(data);
-                    dispatch(getProductByBarcode(data));
                   }}
                 />
                 <TextField
@@ -169,12 +167,15 @@ export const Products = () => {
                     padding: '5px',
                     backgroundColor: '#e0e0e0',
                     marginLeft: '2px',
+                    width: '150px',
+                    height: '100%',
+                    cursor: 'pointer',
                   }}
                   onClick={() => {
                     dispatch(getProductByBarcode(search));
                   }}
                 >
-                  {t('BarcodeSearch')}
+                  {t('checkOut')}
                 </div>
               </ModalSearchContainer>
             </ModalContent>
@@ -659,7 +660,7 @@ export const Products = () => {
                 className='btn btn-primary'
                 style={{ marginLeft: '1em' }}
               >
-                {t('BarcodeSearch')}
+                {t('checkOut')}
               </div>
             </div>
           </div>

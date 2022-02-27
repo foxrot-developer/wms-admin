@@ -40,6 +40,7 @@
   "remainingDays": "الايام. المتبقية",
   "checkedInTime": "تاريخ تسجيل الدخول",
   "checkOutTime": "تاريخ تسجيل الدخول",
+  "checkOut": "تسجيل الخروج",
   "warehouse": "مستودع",
   "Total": "الاجمالي",
   "unPaid": "غير مدفوع",
@@ -69,5 +70,6 @@
   "history": "التاريخ",
   "requested_quantity": "الكمية المطلوبة",
   "Language": "اللغة",
-  "signature": "التوقيع"
+  "signature": "التوقيع",
+  "img": "صورة"
 }

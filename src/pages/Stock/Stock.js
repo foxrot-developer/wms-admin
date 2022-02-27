@@ -48,15 +48,11 @@ export const Stock = () => {
   const stock = useSelector((state) => state.stock.stock);
   const [openModal, setOpenModal] = useState(false);
   const [productData, setProductData] = useState({
+    prodImage: '',
     product_name: '',
     description: '',
     price: 0,
     quantity: 0,
-  });
-
-  const [openUpdateModal, setOpenUpdateModal] = useState({
-    open: false,
-    id: '',
   });
 
   useEffect(() => {
@@ -77,6 +73,18 @@ export const Stock = () => {
                 </IconButton>
               </HeaderContainer>
               <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    type='file'
+                    onChange={(e) => {
+                      setProductData({
+                        ...productData,
+                        prodImage: e.target.files[0],
+                      });
+                    }}
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
@@ -141,14 +149,13 @@ export const Stock = () => {
                 </button>
                 <button
                   onClick={() => {
-                    dispatch(
-                      addStock({
-                        product_name: productData.product_name,
-                        description: productData.description,
-                        price: productData.price,
-                        quantity: productData.quantity,
-                      })
-                    );
+                    const formData = new FormData();
+                    formData.append('prodImage', productData.prodImage);
+                    formData.append('product_name', productData.product_name);
+                    formData.append('description', productData.description);
+                    formData.append('price', productData.price);
+                    formData.append('quantity', productData.quantity);
+                    dispatch(addStock(formData));
                     setOpenModal(false);
                   }}
                   className='btn btn-success'
@@ -186,6 +193,7 @@ export const Stock = () => {
                   <TableRow>
                     <TableCell width={50}>#</TableCell>
                     <TableCell width={150}>{t('productName')}</TableCell>
+                    <TableCell width={150}>{t('img')}</TableCell>
                     <TableCell width={150}>{t('Describe')}</TableCell>
                     <TableCell width={150}>{t('price')}</TableCell>
                     <TableCell width={150}>{t('quantity')}</TableCell>
@@ -205,6 +213,13 @@ export const Stock = () => {
                           {index + 1}
                         </TableCell>
                         <TableCell>{product.product_name}</TableCell>
+                        <TableCell>
+                          <img
+                            style={{ width: '150px', height: '100px' }}
+                            src={'https://wmsss.herokuapp.com/' + product.image}
+                            alt='product'
+                          />
+                        </TableCell>
                         <TableCell>{product.description}</TableCell>
                         <TableCell>{product.price}</TableCell>
                         <TableCell>{product.quantity}</TableCell>

@@ -39,6 +39,7 @@
   "remainingDays": "Remaining Days",
   "checkedInTime": "CheckedIn Time",
   "checkOutTime": "CheckOut Time",
+  "checkOut": "Check Out",
   "warehouse": "Warehouse",
   "Total": "Total",
   "unPaid": "unPaid",
@@ -68,5 +69,6 @@
   "history": "History",
   "requested_quantity": "Requested Quantity",
   "Language": "Language",
-  "signature": "Signature"
+  "signature": "Signature",
+  "img": "Image"
 }
